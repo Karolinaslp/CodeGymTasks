@@ -1,0 +1,17 @@
+Granie w Javarellę
+1. Wprowadź 20 liczb z klawiatury, zapisz je w liście, a następnie sortuj do trzech różnych list:
+Liczby podzielne przez 3 (x%3==0), liczby podzielne 2 (x%2==0) oraz pozostałe.
+Liczby podzielne zarówno przez 3, jak i przez 2 (na przykład 6) umieść w obu listach.
+Kolejność deklarowania list jest bardzo ważna.
+2. Metoda printLista powinna wyświetlać każdą pozycję z listy w nowej linii.
+3. Używając metody printLista, wyświetl te trzy instancje listy. Najpierw listę liczb x%3, następnie listę liczb x%2, a na końcu listę ostatnią.
+
+
+Requirements:
+1. Zadeklaruj i natychmiast zainicjalizuj 4 zmienne ArrayList<Integer>. Pierwsza lista będzie tą główną. Pozostałe listy będą listami dodatkowymi.
+2. Wczytaj 20 liczb z klawiatury i dodaj je do głównej listy.
+3. Do pierwszej dodatkowej listy dodaj wszystkie liczby z listy głównej, które są podzielne przez 3.
+4. Do drugiej dodatkowej listy dodaj wszystkie liczby z listy głównej, które są podzielne przez 2.
+5. Do trzeciej dodatkowej listy dodaj pozostałe liczby z listy głównej.
+6. Metoda printLista powinna wyświetlać każdy element z przekazywanej listy w nowej linii.
+7. Program powinien wyświetlać trzy dodatkowe listy przy użyciu metody printLista.

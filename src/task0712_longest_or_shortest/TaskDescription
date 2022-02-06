@@ -1,0 +1,13 @@
+Najkrótszy czy najdłuższy
+1. Utwórz listę ciągów.
+2. Dodaj 10 ciągów z klawiatury.
+3. Ustal, który ciąg pojawi się w liście wcześniej: najkrótszy czy najdłuższy.
+Jeśli więcej niż jeden ciąg jest najkrótszy bądź najdłuższy, zajmij się pierwszym takim ciągiem.
+4. Wyświetl ciąg opisany w Kroku 3. Powinien się wyświetlić jeden ciąg.
+
+
+Requirements:
+1. Zadeklaruj zmienną lista typu string i natychmiast ją zainicjalizuj.
+2. Program powinien wczytać 10 ciągów z klawiatury i dodawać je do listy.
+3. Program powinien wyświetlać najkrótszy ciąg, jeśli znajduje się on przed najdłuższym.
+4. Program powinien wyświetlać najdłuższy ciąg, jeśli znajduje się on przed najkrótszym.

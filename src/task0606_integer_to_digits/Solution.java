@@ -1,4 +1,4 @@
-package task0606_integer_to_char;
+package task0606_integer_to_digits;
 
 import java.io.BufferedReader;
 import java.io.IOException;
