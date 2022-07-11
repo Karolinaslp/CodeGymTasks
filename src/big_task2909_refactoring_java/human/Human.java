@@ -1,4 +1,7 @@
 package big_task2909_refactoring_java.human;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Human {
     public static int nextId = 0;
@@ -16,6 +19,7 @@ public class Human {
     public static final int THIRD = 3;
     public static final int FOURTH = 4;
     private int bloodType;
+    private List<Human> children = new ArrayList<>();
 
     public void setBloodType(int code) {
         bloodType = code;
@@ -49,6 +53,18 @@ public class Human {
 
     public int getCourse() {
         return course;
+    }
+
+    public List<Human> getChildren() {
+        return Collections.unmodifiableList(children);
+    }
+
+    public void addChild(Human child){
+        children.add(child);
+    }
+
+    public void removeChild(Human child){
+        children.remove(child);
     }
 
     public void live() {
