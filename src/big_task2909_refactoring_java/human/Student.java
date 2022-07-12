@@ -1,4 +1,5 @@
 package big_task2909_refactoring_java.human;
+
 import java.util.Date;
 
 public class Student extends Human {
@@ -8,7 +9,7 @@ public class Student extends Human {
     private Date endOfSession;
 
     public Student(String name, int age, double averageGrade) {
-        super(false);
+        super(name, age);
         this.name = name;
         this.age = age;
         this.averageGrade = averageGrade;
