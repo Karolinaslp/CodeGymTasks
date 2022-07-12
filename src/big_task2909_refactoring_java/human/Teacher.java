@@ -1,6 +1,8 @@
 package big_task2909_refactoring_java.human;
 
+
 public class Teacher extends Human {
+    private int course;
     private int numberOfStudents;
     private String university;
 
@@ -28,5 +30,9 @@ public class Teacher extends Human {
 
     public void printData() {
         System.out.println("Teacher: " + name);
+    }
+
+    public int getCourse() {
+        return course;
     }
 }

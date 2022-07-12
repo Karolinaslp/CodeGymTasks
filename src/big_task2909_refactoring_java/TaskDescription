@@ -14,3 +14,9 @@ In this Big Task from CodeGym course I need to refactor and finish given bad qua
     2.Delete isSoldier field
     3.Move fight method from Human to Soldier class
     4.Update the Human constructor's
+
+ PART 3:
+
+    1.Create Alive interface and move live() method into
+    2.Push down course field getCourse() method
+    3.Delete Professor class
