@@ -20,3 +20,10 @@ In this Big Task from CodeGym course I need to refactor and finish given bad qua
     1.Create Alive interface and move live() method into
     2.Push down course field getCourse() method
     3.Delete Professor class
+
+ PART 4:
+
+    1.Replace inheritance with delegation in University class
+    2.Create UniversityPerson class with students list
+    3.Change inheritance in Student and Teacher class
+    4.Replace simple university field type to object University type
