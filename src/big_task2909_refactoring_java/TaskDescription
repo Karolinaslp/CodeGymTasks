@@ -27,3 +27,9 @@ In this Big Task from CodeGym course I need to refactor and finish given bad qua
     2.Create UniversityPerson class with students list
     3.Change inheritance in Student and Teacher class
     4.Replace simple university field type to object University type
+
+ PART 5:
+
+    1.Create a template getPosition() method
+    2.Replace the printData in subclasses with a template method
+    3.Replace delegation with inheritance in Worker class

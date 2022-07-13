@@ -1,6 +1,5 @@
 package big_task2909_refactoring_java.human;
 
-
 public class Teacher extends UniversityPerson {
     private int numberOfStudents;
 
@@ -18,11 +17,12 @@ public class Teacher extends UniversityPerson {
     public void teach() {
     }
 
-    public void printData() {
-        System.out.println("Teacher: " + name);
-    }
-
     public int getCourse() {
         return course;
+    }
+
+    @Override
+    public String getPosition() {
+        return "Teacher";
     }
 }
