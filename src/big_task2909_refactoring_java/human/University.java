@@ -1,7 +1,9 @@
 package big_task2909_refactoring_java.human;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
 public class University {
     String name;
     int age;
@@ -37,8 +39,26 @@ public class University {
         this.students = students;
     }
 
-    public Student getStudentWithAverageGrade() {
-        // TODO:
-        return null;
+    public Student getStudentWithAverageGrade(double averageGrade) {
+        return students.stream()
+                .filter(student -> student.getAverageGrade() == averageGrade)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Student getStudentWithHighestAverageGrade() {
+        return students.stream()
+                .max(Comparator.comparingDouble(Student::getAverageGrade))
+                .orElse(null);
+    }
+
+    public Student getStudentWithLowestAverageGrade() {
+        return students.stream()
+                .min(Comparator.comparingDouble(Student::getAverageGrade))
+                .orElse(null);
+    }
+
+    public void expel(Student student) {
+        students.remove(student);
     }
 }
