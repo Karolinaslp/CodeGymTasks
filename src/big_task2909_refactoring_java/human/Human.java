@@ -1,5 +1,4 @@
 package big_task2909_refactoring_java.human;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

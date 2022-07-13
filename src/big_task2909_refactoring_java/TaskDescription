@@ -33,3 +33,12 @@ In this Big Task from CodeGym course I need to refactor and finish given bad qua
     1.Create a template getPosition() method
     2.Replace the printData in subclasses with a template method
     3.Replace delegation with inheritance in Worker class
+
+PART 6:
+
+    1.Replace Student class setValue method with setCourse() and setAverageGrade() methods
+    2.Implement getStudentWithAverageGrade(),
+                getStudentWithHighestAverageGrade(),
+                getStudentWithLowestAverageGrade(),
+                expel() methods.
+    3. Learning how to use stream(), lambda expression and Comparator.
