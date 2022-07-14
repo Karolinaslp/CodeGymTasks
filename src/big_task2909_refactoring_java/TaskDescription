@@ -42,3 +42,9 @@ PART 6:
                 getStudentWithLowestAverageGrade(),
                 expel() methods.
     3. Learning how to use stream(), lambda expression and Comparator.
+
+PART 7:
+
+    1.Replace parameters with object in setBeginningOfSession() and setEndOfSession() methods
+    2.Replace incAverageGradeBy01() and intAverageGradeBy02 methods with incAverageGrade(double delta)
+    3.Fix addStudentInfo() and printStudentInfo() methods
