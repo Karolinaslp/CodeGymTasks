@@ -47,4 +47,6 @@ PART 7:
 
     1.Replace parameters with object in setBeginningOfSession() and setEndOfSession() methods
     2.Replace incAverageGradeBy01() and intAverageGradeBy02 methods with incAverageGrade(double delta)
-    3.Fix addStudentInfo() and printStudentInfo() methods
+    3.Fix addStudentInfo() and printStudentInfo
+    4.Encapsulate incAverageGrade() in Worker class
+    5.Replace bloodType code in Human class with a BloodType class in human package
