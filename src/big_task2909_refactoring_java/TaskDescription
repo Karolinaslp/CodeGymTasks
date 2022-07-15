@@ -56,3 +56,5 @@ PART 8:
     1.Refactoring Car class
     2.Replace constructor with factory method
     3.Add Truck, Sedan and Cabriolet classes
+    4.Create and implement isSummer(), getWinterConsumption() and getSummerConsumption() method
+    5.Rewrite the getTripConsumption() method

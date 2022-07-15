@@ -36,19 +36,31 @@ public class Car {
         }
     }
 
-    public int fill(double numberOfGallons) {
-        if (numberOfGallons < 0)
-            return -1;
+    public void fill(double numberOfGallons) throws Exception {
+        if (numberOfGallons < 0) {
+            throw new Exception();
+        }
         fuel += numberOfGallons;
-        return 0;
+    }
+
+    public boolean isSummer(Date date, Date summerStart, Date summerEnd) {
+        return date.after(summerStart) && date.before(summerEnd);
+    }
+
+    public double getWinterConsumption(int length) {
+        return length * winterFuelConsumption + winterWarmingUp;
+    }
+
+    public double getSummerConsumption(int length) {
+        return length * summerFuelConsumption;
     }
 
     public double getTripConsumption(Date date, int length, Date summerStart, Date summerEnd) {
         double consumption;
-        if (date.before(summerStart) || date.after(summerEnd)) {
-            consumption = length * winterFuelConsumption + winterWarmingUp;
+        if (isSummer(date, summerStart, summerEnd)) {
+            consumption = getSummerConsumption(length);
         } else {
-            consumption = length * summerFuelConsumption;
+            consumption = getWinterConsumption(length);
         }
         return consumption;
     }
