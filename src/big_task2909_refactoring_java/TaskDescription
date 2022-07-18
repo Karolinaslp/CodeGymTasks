@@ -66,3 +66,10 @@ PART 9:
     3.Rewrite the startMoving() method
     4.Override getMaxSpeed in Cars child classes
     5.Make Car class maxSpeed() method abstract
+
+PART 10:
+
+    1.Create printInfo() method
+    2.Delete ageLessThan16() method
+    3.Move printAdditionalInfo() method to User class
+    4.Rewrite calculateRate() method
