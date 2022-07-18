@@ -4,18 +4,18 @@ public class User {
     private String firstName;
     private String lastName;
     private int age;
-
-    private String country;
-    private String city;
-    private House house;
+    private boolean male = true;
 
     private Job job;
+
+    private Address address;
 
     public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -41,24 +41,40 @@ public class User {
         this.age = age;
     }
 
+    public boolean isMale() {
+        return male;
+    }
+
+    public void setMale(boolean male) {
+        if (male) {
+            this.male = true;
+        } else {
+            this.male = false;
+        }
+    }
+
     public String getCountry() {
-        return country;
+        return address.getCountry();
     }
 
     public void setCountry(String country) {
-        this.country = country;
+        address.setCountry(country);
     }
 
     public String getCity() {
-        return city;
+        return address.getCity();
     }
 
     public void setCity(String city) {
-        this.city = city;
+        address.setCity(city);
+    }
+
+    public String getHouse() {
+        return address.getHouse();
     }
 
     public String getAddress() {
-        return country + " " + city + " " + house.house;
+        return address.getCountry() + " " + address.getCity() + " " + address.getHouse();
     }
 
     public Job getJob() {
@@ -79,5 +95,9 @@ public class User {
             System.out.println("User is younger than 16");
         else
             System.out.println("User is at least 16");
+    }
+
+    public String getBoss() {
+        return job.getBoss();
     }
 }
