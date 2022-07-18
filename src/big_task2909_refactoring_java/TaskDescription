@@ -73,3 +73,11 @@ PART 10:
     2.Delete ageLessThan16() method
     3.Move printAdditionalInfo() method to User class
     4.Rewrite calculateRate() method
+
+PART 11:
+
+    1.Replace  the isAnnaMale and isRomanMale fields with a male field in User class.
+    2.Add Address class in user package
+    3.Rewrite User class with Address field
+    4.Delete House class
+    5.Add getBoss() method in User class
