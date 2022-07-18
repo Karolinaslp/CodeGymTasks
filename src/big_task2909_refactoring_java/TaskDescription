@@ -58,3 +58,11 @@ PART 8:
     3.Add Truck, Sedan and Cabriolet classes
     4.Create and implement isSummer(), getWinterConsumption() and getSummerConsumption() method
     5.Rewrite the getTripConsumption() method
+
+PART 9:
+
+    1.Create and implement canPassengersBeCarried() method
+    2.Rewrite the getNumberOfPassengersThatCanBeCarried() method
+    3.Rewrite the startMoving() method
+    4.Override getMaxSpeed in Cars child classes
+    5.Make Car class maxSpeed() method abstract
