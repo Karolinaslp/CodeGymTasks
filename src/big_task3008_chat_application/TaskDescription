@@ -7,3 +7,4 @@ PART 1: Work with ConsoleHelper class
     2. Create writeMassage(),
               readString(),
               readInt() methods and  implement them.
+    3. Add values for the MessageType enum.
