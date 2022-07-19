@@ -1,1 +1,9 @@
-Plan to write a chat system. Te system will consist of one server and multiple clients, one for each chat participant
+Plan to write a chat system.
+The system will consist of one server and multiple clients, one for each chat participant.
+
+PART 1: Work with ConsoleHelper class
+
+    1. Add BufferedReader field and initialized it.
+    2. Create writeMassage(),
+              readString(),
+              readInt() methods and  implement them.
