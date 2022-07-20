@@ -8,3 +8,4 @@ PART 1: Work with ConsoleHelper class
               readString(),
               readInt() methods and  implement them.
     3. Add values for the MessageType enum.
+    4. Implement Message class.
