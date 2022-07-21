@@ -1,5 +1,6 @@
 Plan to write a chat system.
-The system will consist of one server and multiple clients, one for each chat participant.
+The system will consist of one server and multiple clients,
+one for each chat participant.
 
 PART 1: Work with ConsoleHelper class
 
@@ -22,3 +23,10 @@ PART 2: Working with Connection class
     5. Implement Closeable interface.
     6. Add synchronized block in send() and receive() methods.
 
+PART 3: Working with Server class
+
+    1. Create nested private Handler class that inherits Thread.
+    2. Implement Handler class.
+    3. In main method create a server socket connection.
+    4. In while look server waits for client to connect to the socket
+       and creates a new Handler thread on which message will be exchanged.
