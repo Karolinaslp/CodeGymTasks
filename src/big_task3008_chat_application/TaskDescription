@@ -9,3 +9,16 @@ PART 1: Work with ConsoleHelper class
               readInt() methods and  implement them.
     3. Add values for the MessageType enum.
     4. Implement Message class.
+
+PART 2: Working with Connection class
+
+    1. Add Socket, ObjectOutputStream, ObjectInputStream fields.
+    2. Acknowledge about socket connection.
+    3. Make Connection class serializable.
+    4. Create send(),
+              receive(),
+              getRemoteSocketAddress(),
+              close() methods and implement them.
+    5. Implement Closeable interface.
+    6. Add synchronized block in send() and receive() methods.
+
