@@ -1,10 +1,14 @@
 package big_task3008_chat_application;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
+    private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
+
 
     public static void main(String[] args) throws IOException {
         ConsoleHelper.writeMessage("Enter server port:");
@@ -22,12 +26,23 @@ public class Server {
 
         }
     }
-
     private static class Handler extends Thread {
         private Socket socket;
 
         public Handler(Socket socket) {
             this.socket = socket;
+        }
+
+    }
+
+
+    public static void sendBroadcastMessage(Message message) throws IOException {
+        try {
+            for (Connection c : connectionMap.values()) {
+                c.send(message);
+            }
+        }catch (Exception e) {
+            ConsoleHelper.writeMessage("Message couldn't be sent");
         }
     }
 }
