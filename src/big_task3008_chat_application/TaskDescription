@@ -30,3 +30,5 @@ PART 3: Working with Server class
     3. In main method create a server socket connection.
     4. In while look server waits for client to connect to the socket
        and creates a new Handler thread on which message will be exchanged.
+    5. Add static Map field which contain clients names as key, and connection as value.
+    6. Create and implement sendBroadcastMessage() method.
