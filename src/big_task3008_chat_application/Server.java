@@ -38,7 +38,7 @@ public class Server {
                 connection.send(new Message(MessageType.NAME_REQUEST));
                 Message request = connection.receive();
 
-                if(request.getType().equals(MessageType.USER_NAME)){
+                if (request.getType().equals(MessageType.USER_NAME)) {
                     String data = request.getData();
                     if (data != null && !(data.equals(""))) {
                         if (!(connectionMap.containsKey(data))) {
@@ -48,6 +48,15 @@ public class Server {
                         }
                     }
                 }
+            }
+        }
+
+        private void notifyUsers(Connection connection, String userName) throws IOException, ClassNotFoundException {
+            for (Map.Entry<String, Connection> pair : connectionMap.entrySet()) {
+                if (!(userName.equals(pair.getKey())))
+                    connection.send(new Message(MessageType.USER_ADDED, pair.getKey()));
+
+
             }
         }
     }

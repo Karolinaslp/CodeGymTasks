@@ -33,11 +33,16 @@ PART 3: Working with Server class
     5. Add static Map field which contain clients names as key, and connection as value.
     6. Create and implement sendBroadcastMessage() method.
     7. In Handler nested class add serverHandshake() method that:
-             a) Generate and send a username request
-             b) Get the client's response
-             c) Verify that the response has a username
-             d) Extract the name from the response, and verify that it is not empty and is not already being used (use connectionMap)
-             e) Add the new user and connection to connectionMap
-             f) Send an informational message to the client, informing it that the name was accepted
-             g) If any verification step fails, request the client's name again
-             h) Return the accepted name as the return value
+            a) Generate and send a username request
+            b) Get the client's response
+            c) Verify that the response has a username
+            d) Extract the name from the response, and verify that it is not empty and is not already being used (use connectionMap)
+            e) Add the new user and connection to connectionMap
+            f) Send an informational message to the client, informing it that the name was accepted
+            g) If any verification step fails, request the client's name again
+            h) Return the accepted name as the return value
+    8. Create and implement notifyUsers() method that:
+            a) Iterate over connectionMap.
+            b) For each element in step 1, get the client name, generate a USER_ADDED message that includes the passed name.
+            c) Use the connection field to send the generated message.
+            d) Don't send a USER_ADDED message to the user whose name is equal to userName.
