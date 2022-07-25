@@ -32,3 +32,12 @@ PART 3: Working with Server class
        and creates a new Handler thread on which message will be exchanged.
     5. Add static Map field which contain clients names as key, and connection as value.
     6. Create and implement sendBroadcastMessage() method.
+    7. In Handler nested class add serverHandshake() method that:
+             a) Generate and send a username request
+             b) Get the client's response
+             c) Verify that the response has a username
+             d) Extract the name from the response, and verify that it is not empty and is not already being used (use connectionMap)
+             e) Add the new user and connection to connectionMap
+             f) Send an informational message to the client, informing it that the name was accepted
+             g) If any verification step fails, request the client's name again
+             h) Return the accepted name as the return value

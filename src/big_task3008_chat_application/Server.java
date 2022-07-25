@@ -9,11 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Server {
     private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
 
-
     public static void main(String[] args) throws IOException {
         ConsoleHelper.writeMessage("Enter server port:");
         final int port = ConsoleHelper.readInt();
-
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             ConsoleHelper.writeMessage("Chat server is running");
@@ -26,6 +24,7 @@ public class Server {
 
         }
     }
+
     private static class Handler extends Thread {
         private Socket socket;
 
@@ -33,6 +32,24 @@ public class Server {
             this.socket = socket;
         }
 
+        private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
+
+            while (true) {
+                connection.send(new Message(MessageType.NAME_REQUEST));
+                Message request = connection.receive();
+
+                if(request.getType().equals(MessageType.USER_NAME)){
+                    String data = request.getData();
+                    if (data != null && !(data.equals(""))) {
+                        if (!(connectionMap.containsKey(data))) {
+                            connectionMap.put(data, connection);
+                            connection.send(new Message(MessageType.NAME_ACCEPTED));
+                            return data;
+                        }
+                    }
+                }
+            }
+        }
     }
 
 
@@ -41,7 +58,7 @@ public class Server {
             for (Connection c : connectionMap.values()) {
                 c.send(message);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             ConsoleHelper.writeMessage("Message couldn't be sent");
         }
     }
