@@ -46,3 +46,9 @@ PART 3: Working with Server class
             b) For each element in step 1, get the client name, generate a USER_ADDED message that includes the passed name.
             c) Use the connection field to send the generated message.
             d) Don't send a USER_ADDED message to the user whose name is equal to userName.
+    9. Create and implement serverMainLoop() method which in infinity loop:
+            a) Receive client messages.
+            b) If received message is text, than generate a new text message.
+            c) Send generated message to all clients.
+            d) If received message is not text, display an error message.
+

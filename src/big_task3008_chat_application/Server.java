@@ -59,6 +59,18 @@ public class Server {
 
             }
         }
+
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException {
+            while (true) {
+                Message received = connection.receive();
+                if (received.getType() == MessageType.TEXT) {
+                    String message = userName + ": " + received.getData();
+                    sendBroadcastMessage(new Message(MessageType.TEXT, message));
+                } else {
+                    ConsoleHelper.writeMessage("Message received from " + socket.getRemoteSocketAddress() + ". The message type does not match the protocol.");
+                }
+            }
+        }
     }
 
 
