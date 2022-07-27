@@ -51,4 +51,13 @@ PART 3: Working with Server class
             b) If received message is text, than generate a new text message.
             c) Send generated message to all clients.
             d) If received message is not text, display an error message.
+    10. Create run() method that :
+             a) Display a message indicating that a new connection was established with a remote address.
+             b) Call the method that implements the handshake with the client, and store the name of the new client.
+             c) Send the name of the new participant (USER_ADDED message) to all chat participants.
+             d) Inform the new participant about the existing participants.
+             e) Start the server's main message-processing loop.
+             f) Close the connection if an exception occurs.
+             g) Remove participant who's address occur error.
+             h) Display a message indicating that the connection with the remote address is closed.
 

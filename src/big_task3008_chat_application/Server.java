@@ -1,5 +1,4 @@
 package big_task3008_chat_application;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server {
-    private static Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
+    private static final Map<String, Connection> connectionMap = new ConcurrentHashMap<>();
 
     public static void main(String[] args) throws IOException {
         ConsoleHelper.writeMessage("Enter server port:");
@@ -26,10 +25,39 @@ public class Server {
     }
 
     private static class Handler extends Thread {
-        private Socket socket;
+        private final Socket socket;
 
         public Handler(Socket socket) {
             this.socket = socket;
+        }
+
+        public void run() {
+            ConsoleHelper.writeMessage("A new connection with " + socket.getRemoteSocketAddress() + " has been established.");
+
+            String userName = null;
+
+            try (Connection connection = new Connection(socket)) {
+                userName = serverHandshake(connection);
+
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, userName));
+
+                notifyUsers(connection, userName);
+
+                serverMainLoop(connection, userName);
+
+
+            } catch (IOException | ClassNotFoundException e) {
+                ConsoleHelper.writeMessage("Error while communicating with " + socket.getRemoteSocketAddress());
+            }
+            if (userName != null) {
+                connectionMap.remove(userName);
+                try {
+                    sendBroadcastMessage(new Message(MessageType.USER_REMOVED, userName));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            ConsoleHelper.writeMessage("The connection with " + socket.getRemoteSocketAddress() + " is closed.");
         }
 
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
@@ -72,7 +100,6 @@ public class Server {
             }
         }
     }
-
 
     public static void sendBroadcastMessage(Message message) throws IOException {
         try {
