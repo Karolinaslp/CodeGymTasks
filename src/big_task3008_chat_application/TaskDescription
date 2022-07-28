@@ -67,3 +67,10 @@ PART 4: Creating client package
     2. Create nested SocketThread class that inherit Thread.
     3. Create Connection field.
     4. Add boolean clientConnected field.
+    5. Add  protected methods :
+            a) String getServerAddress()
+            b) int getServerPort()
+            c) String getUserName()
+            d) boolean shouldSendTextFromConsole()
+            e) SocketThread getSocketThread()
+            f) void sendTextMessage(String text)
