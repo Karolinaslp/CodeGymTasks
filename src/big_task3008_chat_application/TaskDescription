@@ -74,3 +74,12 @@ PART 4: Creating client package
             d) boolean shouldSendTextFromConsole()
             e) SocketThread getSocketThread()
             f) void sendTextMessage(String text)
+    6. Create run() method that :
+            a) Create a socket thread.
+            b) Mark created thread as daemon.
+            c) Start a helper thread.
+            d) Making the current thread wait until it receives a notification from another thread.
+            e) Once the thread receives a notification, check the value of clientConnected.
+            f) Read messages from the console until the client is connected. If 'exit' is entered, then exit the loop.
+            g) After each string is read, if the shouldSendTextFromConsole() method returns true, send the text using the sendTextMessage() method.
+    7. Add the main method that create a new Client and call its run() method.
