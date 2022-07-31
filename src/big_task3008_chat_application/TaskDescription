@@ -83,3 +83,8 @@ PART 4: Creating client package
             f) Read messages from the console until the client is connected. If 'exit' is entered, then exit the loop.
             g) After each string is read, if the shouldSendTextFromConsole() method returns true, send the text using the sendTextMessage() method.
     7. Add the main method that create a new Client and call its run() method.
+    8. Implement SockedThread class, add helper methods:
+            a) void processIncomingMessage(String message).
+            b) void informAboutAddingNewUser(String userName).
+            c) void informAboutDeletingNewUser(String userName).
+            d) void notifyConnectionStatusChanged(boolean clientConnected).

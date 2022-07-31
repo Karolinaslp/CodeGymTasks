@@ -7,28 +7,45 @@ import big_task3008_chat_application.MessageType;
 
 import java.io.IOException;
 
-
 public class Client {
     protected Connection connection;
     private volatile boolean clientConnected = false;
 
-    public class SocketThread extends Thread {
-
-    }
-
     protected String getServerAddress() throws IOException {
-        System.out.println("Please, enter server address:");
+        System.out.println("Please enter server address.");
         return ConsoleHelper.readString();
     }
 
     protected int getServerPort() throws IOException {
-        System.out.println("Please, enter server port:");
+        System.out.println("Please enter server port.");
         return ConsoleHelper.readInt();
     }
 
     protected String getUserName() throws IOException {
-        System.out.println("Please, enter user name:");
+        System.out.println("Please enter user name.");
         return ConsoleHelper.readString();
+    }
+
+    public class SocketThread extends Thread {
+
+        protected void processIncomingMessage(String message) {
+            ConsoleHelper.writeMessage(message);
+        }
+
+        protected void informAboutAddingNewUser(String newUser) {
+            ConsoleHelper.writeMessage(newUser + " has joined the chat");
+        }
+
+        protected void informAboutDeletingNewUser(String userName) {
+            ConsoleHelper.writeMessage(userName + " has left the chat");
+        }
+
+        protected void notifyConnectionStatusChanged(boolean clientConnected) {
+            Client.this.clientConnected = clientConnected;
+            synchronized (Client.this) {
+                Client.this.notify();
+            }
+        }
     }
 
     protected boolean shouldSendTextFromConsole() {
@@ -43,10 +60,11 @@ public class Client {
         try {
             connection.send(new Message(MessageType.TEXT, text));
         } catch (IOException e) {
-            ConsoleHelper.writeMessage("Unable to send massage");
+            ConsoleHelper.writeMessage("Unable to sent message");
             clientConnected = false;
         }
     }
+
     public void run() {
         SocketThread socketThread = getSocketThread();
         socketThread.setDaemon(true);
@@ -81,8 +99,10 @@ public class Client {
                 sendTextMessage(text);
         }
     }
+
     public static void main(String[] args) {
         Client client = new Client();
         client.run();
     }
 }
+
