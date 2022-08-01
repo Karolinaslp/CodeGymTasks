@@ -88,3 +88,14 @@ PART 4: Creating client package
             b) void informAboutAddingNewUser(String userName).
             c) void informAboutDeletingNewUser(String userName).
             d) void notifyConnectionStatusChanged(boolean clientConnected).
+    9. Add and implement clientHandshake() method that:
+            a) Use connection field to receive messages in the loop.
+            b) If a received message is a NAME_REQUEST, asking the user to enter a username, creating a new message that is a MessageType.USER_NAME and contains the entered name, and sending the message to the server.
+            c) If a received message is a MessageType.NAME_ACCEPTED, inform the main thread, which is waiting for this. Then exiting the method.
+            d) If there is a message of any other type, throw an IOException("Unexpected MessageType").
+    10. Add a protected void clientMainLoop() that :
+            a) Is using the connection field to receive a message from the server.
+            b) If it is a text message, processing it using the processIncomingMessage() method.
+            c) If the message is a MessageType.USER_ADDED, processing it using the informAboutAddingNewUser() method.
+            d) If the message is a MessageType.USER_REMOVED, process it using the informAboutDeletingNewUser() method.
+            e) If the client receives a message of some other type, throw an IOException("Unexpected MessageType").
