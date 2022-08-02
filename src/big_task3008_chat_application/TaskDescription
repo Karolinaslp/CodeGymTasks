@@ -99,3 +99,7 @@ PART 4: Creating client package
             c) If the message is a MessageType.USER_ADDED, processing it using the informAboutAddingNewUser() method.
             d) If the message is a MessageType.USER_REMOVED, process it using the informAboutDeletingNewUser() method.
             e) If the client receives a message of some other type, throw an IOException("Unexpected MessageType").
+    11. Add run() method that:
+            a) Create connection withe the server.
+            b) Calling clientHandshake() and clientMainLoop() methods.
+            c) If exception occurs calling notifyConnectionStatusChanged() method and set false as an argument.

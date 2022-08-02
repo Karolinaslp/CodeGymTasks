@@ -5,45 +5,25 @@ import big_task3008_chat_application.ConsoleHelper;
 import big_task3008_chat_application.Message;
 import big_task3008_chat_application.MessageType;
 
+
 import java.io.IOException;
+import java.net.Socket;
 
 public class Client {
     protected Connection connection;
     private volatile boolean clientConnected = false;
 
-    protected String getServerAddress() throws IOException {
-        System.out.println("Please enter server address.");
-        return ConsoleHelper.readString();
-    }
-
-    protected int getServerPort() throws IOException {
-        System.out.println("Please enter server port.");
-        return ConsoleHelper.readInt();
-    }
-
-    protected String getUserName() throws IOException {
-        System.out.println("Please enter user name.");
-        return ConsoleHelper.readString();
-    }
-
     public class SocketThread extends Thread {
 
-        protected void processIncomingMessage(String message) {
-            ConsoleHelper.writeMessage(message);
-        }
+        @Override
+        public void run() {
+            try {
+                connection = new Connection(new Socket(getServerAddress(), getServerPort()));
 
-        protected void informAboutAddingNewUser(String newUser) {
-            ConsoleHelper.writeMessage(newUser + " has joined the chat");
-        }
-
-        protected void informAboutDeletingNewUser(String userName) {
-            ConsoleHelper.writeMessage(userName + " has left the chat");
-        }
-
-        protected void notifyConnectionStatusChanged(boolean clientConnected) {
-            Client.this.clientConnected = clientConnected;
-            synchronized (Client.this) {
-                Client.this.notify();
+                clientHandshake();
+                clientMainLoop();
+            } catch (IOException | ClassNotFoundException e) {
+                notifyConnectionStatusChanged(false);
             }
         }
 
@@ -78,6 +58,40 @@ public class Client {
                 }
             }
         }
+
+        protected void processIncomingMessage(String message) {
+            ConsoleHelper.writeMessage(message);
+        }
+
+        protected void informAboutAddingNewUser(String newUser) {
+            ConsoleHelper.writeMessage(newUser + " has joined the chat");
+        }
+
+        protected void informAboutDeletingNewUser(String userName) {
+            ConsoleHelper.writeMessage(userName + " has left the chat");
+        }
+
+        protected void notifyConnectionStatusChanged(boolean clientConnected) {
+            Client.this.clientConnected = clientConnected;
+            synchronized (Client.this) {
+                Client.this.notify();
+            }
+        }
+    }
+
+    protected String getServerAddress() throws IOException {
+        System.out.println("Please enter server address.");
+        return ConsoleHelper.readString();
+    }
+
+    protected int getServerPort() throws IOException {
+        System.out.println("Please enter server port.");
+        return ConsoleHelper.readInt();
+    }
+
+    protected String getUserName() throws IOException {
+        System.out.println("Please enter user name.");
+        return ConsoleHelper.readString();
     }
 
     protected boolean shouldSendTextFromConsole() {
