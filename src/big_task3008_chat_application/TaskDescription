@@ -103,3 +103,12 @@ PART 4: Creating client package
             a) Create connection withe the server.
             b) Calling clientHandshake() and clientMainLoop() methods.
             c) If exception occurs calling notifyConnectionStatusChanged() method and set false as an argument.
+
+PART 5: Creating BotClient class in client package:
+
+    1. Creating BotClient inner class BotSockedThread.
+    2. Overriding SockedThread class methods:
+            a) getSocketThread().
+            b)shouldSendTextFromConsole().
+            c)getUserName().
+    3. Creating main method and call tun method on BotClient object.
