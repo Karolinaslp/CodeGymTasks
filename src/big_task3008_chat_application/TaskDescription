@@ -104,24 +104,35 @@ PART 4: Creating client package
             b) Calling clientHandshake() and clientMainLoop() methods.
             c) If exception occurs calling notifyConnectionStatusChanged() method and set false as an argument.
 
-PART 5: Creating BotClient class in client package:
+PART 5: Create BotClient class in client package:
 
-    1. Creating BotClient inner class BotSockedThread.
-    2. Overriding SockedThread class methods:
+    1. Create BotClient inner class BotSockedThread.
+    2. Override SockedThread class methods:
             a) getSocketThread().
             b)shouldSendTextFromConsole().
             c)getUserName().
-    3. Creating main method and call tun method on BotClient object.
-    4. Implementing BotSockedThread class:
-            a) Overriding clientMainLoop() method.
-            b) Overriding processIncomingMessage() method:
+    3. Create main method and call tun method on BotClient object.
+    4. Implement BotSockedThread class:
+            a) Override clientMainLoop() method.
+            b) Override processIncomingMessage() method:
                 - displaying received message in the console
                 - getting the sender's name
                 - sending reply based on the text of the received message
 
-PART 6: Creating ClientGuiModel in client package:
+PART 6: Create ClientGuiModel in client package:
 
-    1. Adding final allUserNames set and initializing him by using TreeSet.
-    2. Adding getter that prevents modification of set by the client.
-    3. Adding new String field newMessage.
-    4. Creating adduser() and deleteUser() methods.
+    1. Add final allUserNames set and initialize it by using TreeSet.
+    2. Add getter that prevents modification of set by the client.
+    3. Add new String field newMessage.
+    4. Created adduser() and deleteUser() methods.
+
+PART 7: Study ClientGuiView class given by CodeGym course creators.
+
+Part 8: Create ClientGuiController class descendant of the Client class in client package:
+
+    1. Create and initialize ClientGuiModel model field.
+    2. Create and initialize ClientGuiView view field.
+    3. Override run(), getSocketThread(), getServerAddress(), getServerPort(), and getUserName() methods.
+    4. Implement getModel() method.
+    5. Implement main() method.
+
