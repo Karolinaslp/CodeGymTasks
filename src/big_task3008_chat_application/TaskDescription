@@ -2,6 +2,22 @@ Plan to write a chat system.
 The system will consist of one server and multiple clients,
 one for each chat participant.
 
+GOALS:
+
+1. Write a text messaging server.
+2. Write a console-based client that can connect to the server and exchange messages with other chat participants.
+3. Write a bot client that receive request and send information about the current date and time.
+4. Write a chat client with a graphic interface.
+
+From this task I learn how to:
+1. Work with sockets.
+2. Use serialization and deserialization.
+3. Create and synchronize multi-threaded applications, use the volatile modifier, and use classes from the java.util.concurrent library.
+4. Apply the MVC pattern.
+5. Use inner and nested classes.
+6. Work with the Swing library.
+7. Use the Calendar and SimpleDateFormat classes.
+
 PART 1: Work with ConsoleHelper class
 
     1. Add BufferedReader field and initialized it.

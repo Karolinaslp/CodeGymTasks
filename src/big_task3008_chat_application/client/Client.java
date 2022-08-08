@@ -138,6 +138,7 @@ public class Client {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            assert text != null;
             if (text.equalsIgnoreCase("exit"))
                 break;
 

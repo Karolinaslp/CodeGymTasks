@@ -6,14 +6,14 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 
 public class ConsoleHelper {
-    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void writeMessage(String message) {
         System.out.println(message);
     }
 
     public static String readString() throws IOException {
-        String string = "";
+        String string;
         while (true) {
             try {
                 string = reader.readLine();
@@ -27,7 +27,7 @@ public class ConsoleHelper {
     }
 
     public static int readInt() throws IOException {
-        int number = 0;
+        int number;
         while (true) {
             try {
                 number = Integer.parseInt(Objects.requireNonNull(readString()));

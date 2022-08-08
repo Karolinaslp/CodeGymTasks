@@ -39,6 +39,5 @@ public class Connection implements Closeable {
     public SocketAddress getRemoteSocketAddress() {
         return socket.getRemoteSocketAddress();
     }
-
 }
 

@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 public class ClientGuiView {
     private final ClientGuiController controller;
 
-    private JFrame frame = new JFrame("Chat");
-    private JTextField textField = new JTextField(50);
-    private JTextArea messages = new JTextArea(10, 50);
-    private JTextArea users = new JTextArea(10, 10);
+    private final JFrame frame = new JFrame("Chat");
+    private final JTextField textField = new JTextField(50);
+    private final JTextArea messages = new JTextArea(10, 50);
+    private final JTextArea users = new JTextArea(10, 10);
 
     public ClientGuiView(ClientGuiController controller) {
         this.controller = controller;

@@ -3,8 +3,8 @@ package big_task3008_chat_application.client;
 import java.io.IOException;
 
 public class ClientGuiController extends Client {
-    private ClientGuiModel model = new ClientGuiModel();
-    private ClientGuiView view = new ClientGuiView(this);
+    private final ClientGuiModel model = new ClientGuiModel();
+    private final ClientGuiView view = new ClientGuiView(this);
 
     public static void main(String[] args) {
         new ClientGuiController().run();
@@ -42,21 +42,21 @@ public class ClientGuiController extends Client {
 
     @Override
     public void run() {
-        getSocketThread().run();
+        getSocketThread().start();
     }
 
     @Override
-    protected String getServerAddress() throws IOException {
+    protected String getServerAddress() {
         return view.getServerAddress();
     }
 
     @Override
-    protected int getServerPort() throws IOException {
+    protected int getServerPort() {
         return view.getServerPort();
     }
 
     @Override
-    protected String getUserName() throws IOException {
+    protected String getUserName() {
         return view.getUserName();
     }
 

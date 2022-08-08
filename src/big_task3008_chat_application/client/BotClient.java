@@ -32,34 +32,18 @@ public class BotClient extends Client {
                 message = split[1];
                 String outputMessage = "Information for " + senderName + ": ";
                 Date currentDate = Calendar.getInstance().getTime();
-                SimpleDateFormat dateFormat = null;
+                SimpleDateFormat dateFormat = switch (message) {
+                    case "date" -> new SimpleDateFormat("d.MM.yyyy");
+                    case "day" -> new SimpleDateFormat("d");
+                    case "month" -> new SimpleDateFormat("MMMM");
+                    case "year" -> new SimpleDateFormat("yyyy");
+                    case "time" -> new SimpleDateFormat("H:mm:ss");
+                    case "hour" -> new SimpleDateFormat("H");
+                    case "minutes" -> new SimpleDateFormat("m");
+                    case "seconds" -> new SimpleDateFormat("s");
+                    default -> null;
+                };
 
-                switch (message) {
-                    case "date":
-                        dateFormat = new SimpleDateFormat("d.MM.YYYY");
-                        break;
-                    case "day":
-                        dateFormat = new SimpleDateFormat("d");
-                        break;
-                    case "month":
-                        dateFormat = new SimpleDateFormat("MMMM");
-                        break;
-                    case "year":
-                        dateFormat = new SimpleDateFormat("YYYY");
-                        break;
-                    case "time":
-                        dateFormat = new SimpleDateFormat("H:mm:ss");
-                        break;
-                    case "hour":
-                        dateFormat = new SimpleDateFormat("H");
-                        break;
-                    case "minutes":
-                        dateFormat = new SimpleDateFormat("m");
-                        break;
-                    case "seconds":
-                        dateFormat = new SimpleDateFormat("s");
-                        break;
-                }
                 if (dateFormat != null) {
                     outputMessage += dateFormat.format(currentDate);
                     BotClient.this.sendTextMessage(outputMessage);

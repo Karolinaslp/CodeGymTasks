@@ -1,4 +1,5 @@
 package big_task3008_chat_application;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -83,8 +84,6 @@ public class Server {
             for (Map.Entry<String, Connection> pair : connectionMap.entrySet()) {
                 if (!(userName.equals(pair.getKey())))
                     connection.send(new Message(MessageType.USER_ADDED, pair.getKey()));
-
-
             }
         }
 
