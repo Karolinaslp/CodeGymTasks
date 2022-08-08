@@ -118,3 +118,10 @@ PART 5: Creating BotClient class in client package:
                 - displaying received message in the console
                 - getting the sender's name
                 - sending reply based on the text of the received message
+
+PART 6: Creating ClientGuiModel in client package:
+
+    1. Adding final allUserNames set and initializing him by using TreeSet.
+    2. Adding getter that prevents modification of set by the client.
+    3. Adding new String field newMessage.
+    4. Creating adduser() and deleteUser() methods.
