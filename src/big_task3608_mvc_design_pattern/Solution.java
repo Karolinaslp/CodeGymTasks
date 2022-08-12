@@ -1,7 +1,6 @@
 package big_task3608_mvc_design_pattern;
 
 import big_task3608_mvc_design_pattern.controller.Controller;
-import big_task3608_mvc_design_pattern.model.FakeModel;
 import big_task3608_mvc_design_pattern.model.MainModel;
 import big_task3608_mvc_design_pattern.model.Model;
 import big_task3608_mvc_design_pattern.view.UsersView;
