@@ -24,4 +24,10 @@ public class MainModel implements Model {
         //refresh model data
         dataModel.setUsers(usersBetweenLevels);
     }
+
+    public void loadDeletedUsers() {
+        List<User> users = userService.getAllDeletedUsers();
+        //refresh model data
+        dataModel.setUsers(users);
+    }
 }
