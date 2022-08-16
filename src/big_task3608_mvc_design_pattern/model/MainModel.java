@@ -32,4 +32,9 @@ public class MainModel implements Model {
         dataModel.setUsers(users);
         dataModel.setDisplayDeletedUserList(true);
     }
+
+    public void loadUserById(long userId) {
+        User user = this.userService.getUsersById(userId);
+        dataModel.setActiveUser(user);
+    }
 }
