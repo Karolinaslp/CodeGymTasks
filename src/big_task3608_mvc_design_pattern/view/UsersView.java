@@ -9,8 +9,12 @@ public class UsersView implements View {
 
     @Override
     public void refresh(DataModel dataModel) {
-        System.out.println("All users:");
-        for(User user : dataModel.getUsers()) {
+        if (dataModel.isDisplayDeletedUserList()) {
+            System.out.println("All deleted users:");
+        } else {
+            System.out.println("All users:");
+        }
+        for (User user : dataModel.getUsers()) {
             System.out.println("\t" + user);
         }
         System.out.println("===================================================");
@@ -22,7 +26,7 @@ public class UsersView implements View {
         this.controller = controller;
     }
 
-    public void fireShowAllUsersEvent(){
+    public void fireShowAllUsersEvent() {
         controller.onShowAllUsers();
     }
 
