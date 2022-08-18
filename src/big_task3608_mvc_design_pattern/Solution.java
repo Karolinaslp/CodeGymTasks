@@ -23,6 +23,8 @@ public class Solution {
         //emulate user events
         usersView.fireShowAllUsersEvent();
         usersView.fireOpenUserEditFormEvent(126);
+        editUserView.fireUserDeletedEvent(124L);
+        editUserView.fireUserDataChangedEvent("NewName", 124L, 76);
         usersView.fireShowDeletedUsersEvent();
     }
 }
