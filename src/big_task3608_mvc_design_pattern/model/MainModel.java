@@ -13,6 +13,7 @@ public class MainModel implements Model {
     //use special object to keep data for view rendering
     private DataModel dataModel = new DataModel();
 
+
     @Override
     public DataModel getDataModel() {
         return dataModel;
@@ -20,9 +21,9 @@ public class MainModel implements Model {
 
     @Override
     public void loadUsers() {
-        List<User> usersBetweenLevels = userService.getUsersBetweenLevels(1, 100);
+        List<User> users = getAllUsers();
         //refresh model data
-        dataModel.setUsers(usersBetweenLevels);
+        dataModel.setUsers(users);
         dataModel.setDisplayDeletedUserList(false);
     }
 
@@ -36,5 +37,26 @@ public class MainModel implements Model {
     public void loadUserById(long userId) {
         User user = this.userService.getUsersById(userId);
         dataModel.setActiveUser(user);
+    }
+
+    public void deleteUserById(long id) {
+        userService.deleteUser(id);
+        List<User> users = getAllUsers();
+        //refresh model data
+        dataModel.setUsers(users);
+    }
+
+    @Override
+    public void changeUserData(String name, long id, int level) {
+        userService.createOrUpdateUser(name, id, level);
+        List<User> users = getAllUsers();
+        dataModel.setUsers(users);
+    }
+
+    private List<User> getAllUsers() {
+        //model should contain all business logic in the methods
+        List<User> allUsers = userService.getUsersBetweenLevels(1, 100);
+        allUsers = userService.filterOnlyActiveUsers(allUsers);
+        return allUsers;
     }
 }
