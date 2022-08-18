@@ -5,4 +5,6 @@ public interface Model {
     void loadUsers();
     public void loadDeletedUsers();
     public void loadUserById(long userId);
+    void deleteUserById(long id);
+    void changeUserData(String name, long id, int level);
 }
