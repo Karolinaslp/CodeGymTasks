@@ -1,0 +1,6 @@
+I plan to write an archiver that will be able to zip and unzip files.
+
+PART 1:
+
+    1. Create ZipFileManager class : It will perform operations on the archive file.
+    2. Create Archiver class and add main method to it.
