@@ -4,3 +4,4 @@ PART 1:
 
     1. Create ZipFileManager class : It will perform operations on the archive file.
     2. Create Archiver class and add main method to it.
+    3. Implement createZip() method that zip the file specified by the source argument.
