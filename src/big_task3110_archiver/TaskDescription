@@ -1,7 +1,20 @@
-I plan to write an archiver that will be able to zip and unzip files.
+I plan to write an archiver that will be able to:
+ a) zip and unzip files.
+ b) extract an archive.
+ c) add a new file to an existing archive.
+ d) remove a file from an archive.
+ e) view the contents of an archive.
 
 PART 1:
 
     1. Create ZipFileManager class : It will perform operations on the archive file.
     2. Create Archiver class and add main method to it.
     3. Implement createZip() method that zip the file specified by the source argument.
+
+PART 2:
+
+   1. Declare the Operation enum, and add the commands to it.
+   2. Create and implement ConsoleHelper class:
+        a) add void writeMessage(String message) method that writes message to the console.
+        b) add String readString() method tha tread string from the console.
+        c) add int readInt() method that read number from the console.
