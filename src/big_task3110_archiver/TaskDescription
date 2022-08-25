@@ -18,3 +18,9 @@ PART 2:
         a) add void writeMessage(String message) method that writes message to the console.
         b) add String readString() method tha tread string from the console.
         c) add int readInt() method that read number from the console.
+
+PART 3:
+
+    1. Create command package that will store commands which implies the execution of some action.
+    2. Create class for each command.
+    3. Create Command interface with execute() method which use ConsoleHelper class to display message.
