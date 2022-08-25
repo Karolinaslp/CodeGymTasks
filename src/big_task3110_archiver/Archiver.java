@@ -1,5 +1,7 @@
 package big_task3110_archiver;
 
+import big_task3110_archiver.command.ExitCommand;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
@@ -13,5 +15,8 @@ public class Archiver {
 
         System.out.println("Please, enter path to the file to be zipped:");
         zipFileManager.createZip(Paths.get(reader.readLine()));
+
+        final ExitCommand exitCommand = new ExitCommand();
+        exitCommand.execute();
     }
 }
