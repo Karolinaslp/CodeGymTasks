@@ -24,3 +24,10 @@ PART 3:
     1. Create command package that will store commands which implies the execution of some action.
     2. Create class for each command.
     3. Create Command interface with execute() method which use ConsoleHelper class to display message.
+
+PART 4:
+
+    1. Create CommandExecutor class that implements command pattern.
+    2. Prevent direct calls to the constructor by making it private.
+    3. Create allKnownCommandsMap that store the commands.
+    4. Create execute(Operation operation)  method which select the required command from map, and calls its execute method.
