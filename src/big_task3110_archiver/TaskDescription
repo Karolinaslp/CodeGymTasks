@@ -31,3 +31,10 @@ PART 4:
     2. Prevent direct calls to the constructor by making it private.
     3. Create allKnownCommandsMap that store the commands.
     4. Create execute(Operation operation)  method which select the required command from map, and calls its execute method.
+
+PART 5:
+
+     1. Create askOperation() method that
+      a) ask user to choose one of operation from Operation enum.
+      b) find operation by its ordinal number using ordinal() method.
+     2. Rewrite main method to use CommandExecutor and askOperation() method.
