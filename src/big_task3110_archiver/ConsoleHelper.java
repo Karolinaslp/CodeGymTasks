@@ -11,12 +11,11 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public String readString() throws IOException {
-        String string = reader.readLine();
-        return string;
+    public static String readString() throws IOException {
+        return reader.readLine();
     }
 
-    public int readInt() throws IOException {
+    public static int readInt() throws IOException {
         String text = readString();
         return  Integer.parseInt(text.trim());
     }
