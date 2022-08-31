@@ -38,3 +38,8 @@ PART 5:
       a) ask user to choose one of operation from Operation enum.
       b) find operation by its ordinal number using ordinal() method.
      2. Rewrite main method to use CommandExecutor and askOperation() method.
+
+PART 6:
+
+    1. Creating FileManager class witch we will use to get a list of all the files in folder.
+    2. Creating a getFileList() method that return a list of relative paths for all of the files in rootPath parameter.
