@@ -43,3 +43,21 @@ PART 6:
 
     1. Creating FileManager class witch we will use to get a list of all the files in folder.
     2. Creating a getFileList() method that return a list of relative paths for all of the files in rootPath parameter.
+
+PART 7:
+
+    1. Refactoring ZipFileManager class.
+    2. Creating void addNewZipEntry(ipOutputStream zipOutputStream, Path filePath, Path fileName) method that :
+        a) creating an inputD=Stream for the fileName located in the FilePath directory.
+        b) creating a new ZipEntry.
+        c) using void copyData(InputStream in, OutputStream out) method.
+        d) closing the zip entry.
+    3. Creating void copyData(InputStream in, OutputStream out) method.
+    4. Refactoring createZip(Path source) method:
+        a) checking if the directory where we will create zipFile exists, amd if not creating it.
+        b) if source is a regular file, then calling annNewEntry() method.
+        c) if source is a directory we're:
+            -creating FileManager object, passing source to the constructor
+            -getting a list of files from the file manager
+            -calling addNewZipEntry() method for each element of list;
+        d) if source is not a folder or a file, we throw a PathNotFoundException.
