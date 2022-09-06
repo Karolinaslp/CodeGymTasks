@@ -61,3 +61,16 @@ PART 7:
             -getting a list of files from the file manager
             -calling addNewZipEntry() method for each element of list;
         d) if source is not a folder or a file, we throw a PathNotFoundException.
+
+PART 8:
+
+    1. Creating and implementing ZipFileManager's class getZipFileManager() method:
+        a) asking the user to enter the full path to the archive.
+        b) using the entered string to create a Path.
+        c) creating ZipFileManager object, and passing the path to the constructor.
+        d) returning created object.
+    2. Implementing ZipCreateCommand class execute() method:
+        a) creating ZipFileManager class object by calling getZipFileManager() method.
+        b) asking user to enter the full path to the file or directory to be archived.
+        c) creating path using entered string.
+        d) calling ZipFileManager class createZip() method;
