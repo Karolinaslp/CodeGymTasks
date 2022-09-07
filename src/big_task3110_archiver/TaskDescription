@@ -74,3 +74,4 @@ PART 8:
         b) asking user to enter the full path to the file or directory to be archived.
         c) creating path using entered string.
         d) calling ZipFileManager class createZip() method;
+    3. Creating a FileProperties class that is responsible for the properties of each file in the archive.
