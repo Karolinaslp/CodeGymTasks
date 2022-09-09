@@ -1,18 +1,23 @@
 package big_task3110_archiver;
 
 
+import big_task3110_archiver.exception.NoSuchZipFileException;
 import big_task3110_archiver.exception.PathNotFoundException;
 
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class ZipFileManager {
-    private Path zipFile;
+    // Full path to the zip file
+    private final Path zipFile;
 
     public ZipFileManager(Path zipFile) {
         this.zipFile = zipFile;
@@ -57,6 +62,7 @@ public class ZipFileManager {
             zipOutputStream.putNextEntry(entry);
 
             copyData(inputStream, zipOutputStream);
+
             zipOutputStream.closeEntry();
         }
     }
@@ -67,6 +73,34 @@ public class ZipFileManager {
         while ((len = in.read(buffer)) > 0) {
             out.write(buffer, 0, len);
         }
+    }
+
+    public List<FileProperties> getFileList() throws Exception {
+        //Check whether the zip file exists
+        if (!Files.isRegularFile(zipFile)) {
+            throw new NoSuchZipFileException();
+        }
+
+        List<FileProperties> files = new ArrayList<>();
+
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+
+            while (zipEntry != null) {
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                copyData(zipInputStream, byteArrayOutputStream);
+
+                FileProperties file= new FileProperties(
+                        zipEntry.getName(),
+                        zipEntry.getSize(),
+                        zipEntry.getCompressedSize(),
+                        zipEntry.getMethod()
+                );
+                files.add(file);
+                zipEntry = zipInputStream.getNextEntry();
+            }
+        }
+        return files;
     }
 }
 
