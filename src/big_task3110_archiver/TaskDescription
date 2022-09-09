@@ -75,3 +75,8 @@ PART 8:
         c) creating path using entered string.
         d) calling ZipFileManager class createZip() method;
     3. Creating a FileProperties class that is responsible for the properties of each file in the archive.
+    4. Creating List<FileProperties> getFileList() method in ZipFileManager class:
+        a) checking whether zipFile ia a regular file.
+        b) in try-with-resources creating a ZipInputStream for zipFile.
+        c) iterating through all of the ZipEntries, and reading its content.
+        d) creating FileProperties object using data from file.
