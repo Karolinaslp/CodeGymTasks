@@ -90,7 +90,7 @@ public class ZipFileManager {
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 copyData(zipInputStream, byteArrayOutputStream);
 
-                FileProperties file= new FileProperties(
+                FileProperties file = new FileProperties(
                         zipEntry.getName(),
                         zipEntry.getSize(),
                         zipEntry.getCompressedSize(),
@@ -101,6 +101,38 @@ public class ZipFileManager {
             }
         }
         return files;
+    }
+
+    public void extractAll(Path outputFolder) throws Exception {
+        //check whether the zip file exists
+        if (!Files.isRegularFile(zipFile)) {
+            throw new NoSuchZipFileException();
+        }
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+            //Create the output directory if it doesn't exist
+            if (Files.notExists(outputFolder)) {
+                Files.createDirectories(outputFolder);
+            }
+
+            //Go through the contents of the zip stream (file)
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+
+            while (zipEntry != null) {
+                String fileName = zipEntry.getName();
+                Path fileFullName = outputFolder.resolve(fileName);
+
+                //Create the necessary directories
+                Path parent = fileFullName.getParent();
+                if (Files.notExists(parent)) {
+                    Files.createDirectories(parent);
+                }
+
+                try (OutputStream outputStream = Files.newOutputStream(fileFullName)) {
+                    copyData(zipInputStream, outputStream);
+                }
+                zipEntry = zipInputStream.getNextEntry();
+            }
+        }
     }
 }
 
