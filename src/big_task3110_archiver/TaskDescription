@@ -80,3 +80,5 @@ PART 8:
         b) in try-with-resources creating a ZipInputStream for zipFile.
         c) iterating through all of the ZipEntries, and reading its content.
         d) creating FileProperties object using data from file.
+    5. Implementing execute() method in ZipExtractCommand class.
+    6. Declaring and implementing void extractAll(Path outputFolder) method in ZipFileManager class.
