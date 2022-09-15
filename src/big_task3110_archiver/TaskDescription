@@ -82,3 +82,14 @@ PART 8:
         d) creating FileProperties object using data from file.
     5. Implementing execute() method in ZipExtractCommand class.
     6. Declaring and implementing void extractAll(Path outputFolder) method in ZipFileManager class.
+
+PART 9:
+
+    1. Declaring and implementing void removeFiles(List<Path> pathList) method in ZipFileManager class, this method:
+        a) throwing NoSuchZipFileException if te archive file doesn't exist.
+        b) creating temporary archive file.
+        c) going through all rhe files of the original archive, and check whether the current file is in the list to removal,
+           if the file is not on the removal list, copy it to the new archive.
+        d) replacing all original archive file with the temporary file.
+    2. Declaring and implementing void removeFile(Path path) method in ZipFileManager class.
+    3. Implementing ZipRemoveCommand class execute() method.
