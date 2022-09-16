@@ -103,6 +103,7 @@ public class ZipFileManager {
             while (zipEntry != null) {
                 // The "size" and "compressed size" fields are unknown until the entry is read
                 // Let's read it into an output stream
+
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 copyData(zipInputStream, baos);
 
@@ -145,7 +146,7 @@ public class ZipFileManager {
             throw new NoSuchZipFileException();
         }
 
-        final Path tempFile = Files.createTempFile("temp", null, null);
+        final Path tempFile = Files.createTempFile("temp", null);
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(Files.newOutputStream(tempFile))) {
             try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
 
@@ -162,9 +163,58 @@ public class ZipFileManager {
                         zipOutputStream.closeEntry();
                         zipInputStream.closeEntry();
                     } else {
-                        ConsoleHelper.writeMessage(String.format("File '%s' was removed from the archive.", archivedFile.toString()));
+                        ConsoleHelper.writeMessage(String.format("File '%s' was removed from the archive.", archivedFile));
                     }
                     zipEntry = zipInputStream.getNextEntry();
+                }
+            }
+        }
+        //Move the temporary file to the location of the original
+        Files.move(tempFile, zipFile, REPLACE_EXISTING);
+    }
+
+    public void addFile(Path absolutePath) throws Exception {
+        addFiles(Collections.singletonList(absolutePath));
+    }
+
+    public void addFiles(List<Path> absolutePathList) throws Exception {
+        if (!Files.isRegularFile(zipFile)) {
+            throw new NoSuchZipFileException();
+        }
+
+        //Create a temporary file
+        Path tempFile = Files.createTempFile(null, null);
+        List<Path> archiveFiles = new ArrayList<>();
+
+        try (ZipOutputStream zipOutputStream = new ZipOutputStream(Files.newOutputStream(tempFile))) {
+            try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+
+                ZipEntry zipEntry = zipInputStream.getNextEntry();
+                while (zipEntry != null) {
+                    String fileName = zipEntry.getName();
+                    archiveFiles.add(Paths.get(fileName));
+
+                    zipOutputStream.putNextEntry(new ZipEntry(fileName));
+                    copyData(zipInputStream, zipOutputStream);
+
+                    zipOutputStream.closeEntry();
+                    zipInputStream.closeEntry();
+
+                    zipEntry = zipInputStream.getNextEntry();
+                }
+
+                // Archive new files
+                for (Path file : absolutePathList) {
+                    if (Files.isRegularFile(file)) {
+                        if (archiveFiles.contains(file.getFileName())) {
+                            ConsoleHelper.writeMessage(String.format("File'%s' already exists in the archive", file));
+                        } else {
+                            addNewZipEntry(zipOutputStream, file.getParent(), file.getFileName());
+                            ConsoleHelper.writeMessage(String.format("File '%s' was added to the archive.", file));
+                        }
+                    } else {
+                        throw new PathNotFoundException();
+                    }
                 }
             }
         }
