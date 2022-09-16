@@ -11,7 +11,7 @@ public class ZipExtractCommand extends ZipCommand {
     @Override
     public void execute() throws Exception {
 
-        try{
+        try {
             ConsoleHelper.writeMessage("Extracting an archive.");
 
             ZipFileManager zipFileManager = getZipFileManager();
