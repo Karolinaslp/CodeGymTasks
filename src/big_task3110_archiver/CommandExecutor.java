@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommandExecutor {
-    private CommandExecutor commandExecutor;
     private static final Map<Operation, Command> allKnownCommandsMap = new HashMap<>();
 
     static {
@@ -19,7 +18,6 @@ public class CommandExecutor {
     }
 
     private CommandExecutor() {
-        this.commandExecutor = new CommandExecutor();
     }
 
     public static void execute(Operation operation) throws Exception {
