@@ -7,7 +7,7 @@ import big_task3110_archiver.exception.PathNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class ZipAddCommand extends ZipCommand{
+public class ZipAddCommand extends ZipCommand {
     @Override
     public void execute() throws Exception {
         try {
