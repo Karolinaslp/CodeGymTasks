@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 public class ZipExtractCommand extends ZipCommand {
     @Override
     public void execute() throws Exception {
-
         try {
             ConsoleHelper.writeMessage("Extracting an archive.");
 
