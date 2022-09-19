@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileManager {
-    private Path rootPath;
-    private List<Path> fileList;
+    private final Path rootPath;
+    private final List<Path> fileList;
 
     public FileManager(Path rootPath) throws IOException {
         this.rootPath = rootPath;
-        fileList = new ArrayList<>();
+        this.fileList = new ArrayList<>();
         collectFileList(rootPath);
     }
 
@@ -22,14 +22,21 @@ public class FileManager {
     }
 
     private void collectFileList(Path path) throws IOException {
+        // Only add files
         if (Files.isRegularFile(path)) {
             fileList.add(rootPath.relativize(path));
-        } else if (Files.isDirectory(path)) {
-            DirectoryStream<Path> paths = Files.newDirectoryStream(path);
-            for (Path p : paths) {
-                collectFileList(p);
+        }
+
+        // Add the contents of a directory
+        if (Files.isDirectory(path)) {
+            // Recursively go through all the contents of the directory
+            // To avoid writing code to call close on the DirectoryStream,
+            // I will wrap the "new DirectoryStream" call in a try-with-resources
+            try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(path)) {
+                for (Path p : directoryStream) {
+                    collectFileList(p);
+                }
             }
-            paths.close();
         }
     }
 }
