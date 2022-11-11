@@ -1,8 +1,10 @@
 package big_task3209_html_editor;
 
 import big_task3209_html_editor.listeners.FrameListener;
+import big_task3209_html_editor.listeners.TabbedPaneChangeListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -44,7 +46,19 @@ public class View extends JFrame implements ActionListener {
     }
 
     public void initEditor() {
+        htmlTextPane.setContentType("text/html");
 
+        JScrollPane htmlScrollPane = new JScrollPane(htmlTextPane);
+        tabbedPane.add("HTML", htmlScrollPane);
+
+        JScrollPane textScrollPane = new JScrollPane(plainTextPane);
+        tabbedPane.add("Text", textScrollPane);
+
+        tabbedPane.setPreferredSize(new Dimension(700, 500));
+
+        tabbedPane.addChangeListener(new TabbedPaneChangeListener(this));
+
+        this.getContentPane().add(tabbedPane, BorderLayout.CENTER);
     }
 
     public void initGui() {
