@@ -20,11 +20,11 @@ public class Controller {
         controller.init();
     }
 
-    public  void init(){
+    public void init() {
 
     }
 
-    public void exit(){
+    public void exit() {
         System.exit(0);
     }
 }
