@@ -5,6 +5,7 @@ import big_task3209_html_editor.listeners.TabbedPaneChangeListener;
 import big_task3209_html_editor.listeners.UndoListener;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
@@ -14,26 +15,32 @@ import java.awt.event.ActionListener;
 
 public class View extends JFrame implements ActionListener {
     private Controller controller;
-    private final JTabbedPane tabbedPane = new JTabbedPane();
-    private final JTextPane htmlTextPane = new JTextPane();
-    private final JEditorPane plainTextPane = new JEditorPane();
-    private final UndoManager undoManager = new UndoManager();
-    private final UndoListener undoListener = new UndoListener(undoManager);
+
+    private UndoManager undoManager = new UndoManager();
+    private UndoListener undoListener = new UndoListener(undoManager);
+
+    private JTabbedPane tabbedPane = new JTabbedPane();
+    private JTextPane htmlTextPane = new JTextPane();
+    private JEditorPane plainTextPane = new JEditorPane();
 
     public View() {
         try {
-            UIManager.setLookAndFeel(View.class.getName());
-        } catch (Exception ignored) {
-
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            ExceptionHandler.log(e);
         }
+    }
+
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     public Controller getController() {
         return controller;
     }
 
-    public void setController(Controller controller) {
-        this.controller = controller;
+    public UndoListener getUndoListener() {
+        return undoListener;
     }
 
     @Override
@@ -43,12 +50,8 @@ public class View extends JFrame implements ActionListener {
 
     public void init() {
         initGui();
-        FrameListener frameListener = new FrameListener(this);
-        addWindowListener(frameListener);
-        setResizable(true);
-        setLayout(null);
+        addWindowListener(new FrameListener(this));
         setVisible(true);
-        setExtendedState(this.getExtendedState());
     }
 
     public void exit() {
@@ -71,36 +74,17 @@ public class View extends JFrame implements ActionListener {
 
     public void initEditor() {
         htmlTextPane.setContentType("text/html");
-
         JScrollPane htmlScrollPane = new JScrollPane(htmlTextPane);
-        tabbedPane.add("HTML", htmlScrollPane);
+        tabbedPane.addTab("HTML", htmlScrollPane);
 
-        JScrollPane textScrollPane = new JScrollPane(plainTextPane);
-        tabbedPane.add("Text", textScrollPane);
+        JScrollPane plainScrollPane = new JScrollPane(plainTextPane);
+        tabbedPane.addTab("Text", plainScrollPane);
 
-        tabbedPane.setPreferredSize(new Dimension(700, 500));
+        tabbedPane.setPreferredSize(new Dimension(300, 300));
 
         tabbedPane.addChangeListener(new TabbedPaneChangeListener(this));
 
-        this.getContentPane().add(tabbedPane, BorderLayout.CENTER);
-    }
-
-    public void initGui() {
-        initMenuBar();
-        initEditor();
-        pack();
-    }
-
-    public void selectedTabChanged() {
-
-    }
-
-    public boolean canUndo() {
-        return undoManager.canUndo();
-    }
-
-    public boolean canRedo() {
-        return undoManager.canRedo();
+        getContentPane().add(tabbedPane, BorderLayout.CENTER);
     }
 
     public void undo() {
@@ -119,11 +103,44 @@ public class View extends JFrame implements ActionListener {
         }
     }
 
-    public UndoListener getUndoListener() {
-        return undoListener;
+
+    public void initGui() {
+        initMenuBar();
+        initEditor();
+        pack();
+    }
+
+    public void selectedTabChanged() {
+
+    }
+
+    public void selectHtmlTab() {
+        tabbedPane.setSelectedIndex(0);
+        resetUndo();
+    }
+
+    public void update() {
+        HTMLDocument document = controller.getDocument();
+        htmlTextPane.setDocument(document);
+    }
+
+    public void showAbout() {
+        JOptionPane.showMessageDialog(this,"about", "info", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public boolean canUndo() {
+        return undoManager.canUndo();
+    }
+
+    public boolean canRedo() {
+        return undoManager.canRedo();
     }
 
     public void resetUndo() {
         undoManager.discardAllEdits();
+    }
+
+    public boolean isHtmlTabSelected() {
+        return tabbedPane.getSelectedIndex() == 0;
     }
 }
