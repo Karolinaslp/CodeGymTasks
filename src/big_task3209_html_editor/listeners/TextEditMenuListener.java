@@ -2,16 +2,25 @@ package big_task3209_html_editor.listeners;
 
 import big_task3209_html_editor.View;
 
+import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import java.awt.*;
 
 public class TextEditMenuListener implements MenuListener {
+    private final View view;
+
     public TextEditMenuListener(View view) {
+    this.view = view;
     }
 
     @Override
-    public void menuSelected(MenuEvent e) {
-
+    public void menuSelected(MenuEvent menuEvent) {
+        JMenu source = (JMenu) menuEvent.getSource();
+        Component[] menuComponents = source.getMenuComponents();
+        for (Component component : menuComponents) {
+            component.setEnabled(view.isHtmlTabSelected());
+        }
     }
 
     @Override
