@@ -5,6 +5,7 @@ import big_task3209_html_editor.listeners.UndoListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.io.File;
+import java.io.StringReader;
 
 public class Controller {
     private View view;
@@ -42,7 +43,17 @@ public class Controller {
         view.update();
     }
 
-
+    // This method will write the passed text with HTML tags to document
+    public void setPlainText(String text) {
+        try {
+            resetDocument();
+            StringReader reader = new StringReader(text);
+            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+            htmlEditorKit.read(reader, document, 0);
+        } catch (Exception e) {
+            ExceptionHandler.log(e);
+        }
+    }
 
     public HTMLDocument getDocument() {
         return document;
