@@ -16,12 +16,12 @@ import java.awt.event.ActionListener;
 public class View extends JFrame implements ActionListener {
     private Controller controller;
 
-    private UndoManager undoManager = new UndoManager();
-    private UndoListener undoListener = new UndoListener(undoManager);
+    private final UndoManager undoManager = new UndoManager();
+    private final UndoListener undoListener = new UndoListener(undoManager);
 
-    private JTabbedPane tabbedPane = new JTabbedPane();
-    private JTextPane htmlTextPane = new JTextPane();
-    private JEditorPane plainTextPane = new JEditorPane();
+    private final JTabbedPane tabbedPane = new JTabbedPane();
+    private final JTextPane htmlTextPane = new JTextPane();
+    private final JEditorPane plainTextPane = new JEditorPane();
 
     public View() {
         try {
@@ -44,8 +44,16 @@ public class View extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-
+    public void actionPerformed(ActionEvent actionEvent) {
+        String command = actionEvent.getActionCommand();
+        switch (command) {
+            case "New" -> controller.createNewDocument();
+            case "Open" -> controller.openDocument();
+            case "Save" -> controller.saveDocument();
+            case "Save as..." -> controller.saveDocumentAs();
+            case "Exit" -> controller.exit();
+            case "About" -> this.showAbout();
+        }
     }
 
     public void init() {
@@ -111,7 +119,11 @@ public class View extends JFrame implements ActionListener {
     }
 
     public void selectedTabChanged() {
-
+        switch (tabbedPane.getSelectedIndex()) {
+            case 0 -> controller.setPlainText(plainTextPane.getText());
+            case 1 -> plainTextPane.setText(controller.getPlainText());
+        }
+        resetUndo();
     }
 
     public void selectHtmlTab() {
