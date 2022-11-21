@@ -6,6 +6,7 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.io.File;
 import java.io.StringReader;
+import java.io.StringWriter;
 
 public class Controller {
     private View view;
@@ -57,5 +58,36 @@ public class Controller {
 
     public HTMLDocument getDocument() {
         return document;
+    }
+
+
+    public String getPlainText() {
+        StringWriter stringWriter = new StringWriter();
+        try {
+            new HTMLEditorKit().write(stringWriter, document, 0, document.getLength());
+        } catch (Exception e) {
+            ExceptionHandler.log(e);
+        }
+        return stringWriter.toString();
+    }
+
+    public void createNewDocument() {
+        view.selectHtmlTab();
+        resetDocument();
+        view.setTitle("HTML editor");
+        view.resetUndo();
+        currentFile = null;
+    }
+
+    public void openDocument() {
+
+    }
+
+    public void saveDocument() {
+
+    }
+
+    public void saveDocumentAs() {
+
     }
 }
