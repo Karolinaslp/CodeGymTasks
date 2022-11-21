@@ -80,11 +80,40 @@ public class Controller {
     }
 
     public void openDocument() {
+        view.selectHtmlTab();
 
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setFileFilter(new HTMLFileFilter());
+
+        if (jFileChooser.showOpenDialog(view) == JFileChooser.OPEN_DIALOG) {
+            currentFile = jFileChooser.getSelectedFile();
+            view.setTitle(currentFile.getName());
+
+            try {
+                FileReader fileReader = new FileReader(currentFile);
+                new HTMLEditorKit().read(fileReader, document, 0);
+            } catch (BadLocationException | IOException e) {
+                ExceptionHandler.log(e);
+            }
+
+            resetDocument();
+            view.resetUndo();
+        }
     }
 
     public void saveDocument() {
+        view.selectHtmlTab();
 
+        if (currentFile == null) {
+            saveDocumentAs();
+        } else {
+            try {
+                FileWriter writer = new FileWriter(currentFile);
+                new HTMLEditorKit().write(writer, document, 0, document.getLength());
+            } catch (IOException | BadLocationException e) {
+                ExceptionHandler.log(e);
+            }
+        }
     }
 
     public void saveDocumentAs() {
