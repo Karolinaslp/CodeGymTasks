@@ -1,0 +1,24 @@
+RESTAURANT MANAGER
+
+Program to automate what happens in a restaurant.
+    1) each table has a tablet that can be used to place orders;
+    2) while an order is being prepared, the tablet shows ads;
+    3) at the end of the business day, various statistics can be reviewed:
+    a) cook utilization;
+    b) total revenue from orders;
+    c) total revenue from ad impressions.
+
+I'm going to implement:
+First:
+- Customer orders will be sent to the cook automatically;
+- The cook will prepare an order for a while and then mark it as prepared;
+- Then the waiter will carry it away.
+
+Second:
+- Select the desired commercials from a list of paid ads;
+- Display commercials while the order is being prepared;
+- Maximize the ad revenue.
+
+Third:
+- Calculate the statistics;
+- Display the statistics to the manager.
