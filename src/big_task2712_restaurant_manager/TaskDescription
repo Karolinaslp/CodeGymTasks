@@ -10,7 +10,7 @@ Program to automate what happens in a restaurant.
 
 I'm going to implement:
 First:
-- Customer orders will be sent to the cook automatically;
+- Customer orders will be sent to the cook automatically; (done)
 - The cook will prepare an order for a while and then mark it as prepared;
 - Then the waiter will carry it away.
 
@@ -22,3 +22,5 @@ Second:
 Third:
 - Calculate the statistics;
 - Display the statistics to the manager.
+
+
