@@ -21,10 +21,12 @@ public class Order {
         if (dishes.isEmpty()) return result.toString();
 
         result.append("Your order: [").append(dishes.get(0));
+
         for (int i = 1; i < dishes.size(); i++) {
             result.append(", ").append(dishes.get(i).name());
         }
         result.append("] from ").append(tablet);
+
         return result.toString();
     }
 }
