@@ -3,10 +3,11 @@ package big_task2712_restaurant_manager;
 import big_task2712_restaurant_manager.kitchen.Order;
 
 import java.io.IOException;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Tablet {
+public class Tablet extends Observable {
     //Tablet number
     private final int number;
     private static final Logger logger = Logger.getLogger(Tablet.class.getName());
@@ -16,13 +17,16 @@ public class Tablet {
     }
 
     //Creates an order consisting of the dishes chosen by the customer.
-    public void createOrder() {
+    public Order createOrder() {
         Order order = null;
         try {
             order = new Order(this);
+            setChanged();
+            notifyObservers(order);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "The console is unavailable.");
         }
+        return order;
     }
 
     @Override
