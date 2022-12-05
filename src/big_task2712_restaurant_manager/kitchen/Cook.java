@@ -5,7 +5,7 @@ import big_task2712_restaurant_manager.ConsoleHelper;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Cook implements Observer {
+public class Cook extends Observable implements Observer {
     private final String name;
 
     public Cook(String cookName) {
@@ -15,6 +15,8 @@ public class Cook implements Observer {
     @Override
     public void update(Observable o, Object order) {
         ConsoleHelper.writeMassage("Start cooking - " + order);
+        setChanged();
+        notifyObservers(order);
     }
 
     @Override
