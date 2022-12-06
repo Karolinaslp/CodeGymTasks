@@ -21,6 +21,9 @@ public class Tablet extends Observable {
         Order order = null;
         try {
             order = new Order(this);
+            if (order.isEmpty()){
+                return null;
+            }
             setChanged();
             notifyObservers(order);
         } catch (IOException e) {
