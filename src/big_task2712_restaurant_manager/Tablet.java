@@ -1,5 +1,6 @@
 package big_task2712_restaurant_manager;
 
+import big_task2712_restaurant_manager.add.AdvertisementManager;
 import big_task2712_restaurant_manager.kitchen.Order;
 
 import java.io.IOException;
@@ -24,9 +25,11 @@ public class Tablet extends Observable {
             if (order.isEmpty()){
                 return null;
             }
+            AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime()*60);
+            advertisementManager.processVideos();
             setChanged();
             notifyObservers(order);
-        } catch (IOException e) {
+        }catch (IOException e) {
             logger.log(Level.SEVERE, "The console is unavailable.");
         }
         return order;
