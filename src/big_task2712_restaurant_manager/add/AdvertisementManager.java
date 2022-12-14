@@ -10,7 +10,9 @@ public class AdvertisementManager {
         this.timeSeconds = timeSeconds;
     }
 
-    public void processVideos() {
-        ConsoleHelper.writeMassage("calling the processVideos method");
+    public void processVideos() throws NoVideoAvailableException {
+        if (storage.list().isEmpty()) {
+            throw new NoVideoAvailableException();
+        }
     }
 }
