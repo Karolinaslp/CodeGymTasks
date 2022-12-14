@@ -1,6 +1,7 @@
 package big_task2712_restaurant_manager;
 
 import big_task2712_restaurant_manager.add.AdvertisementManager;
+import big_task2712_restaurant_manager.add.NoVideoAvailableException;
 import big_task2712_restaurant_manager.kitchen.Order;
 
 import java.io.IOException;
@@ -22,15 +23,17 @@ public class Tablet extends Observable {
         Order order = null;
         try {
             order = new Order(this);
-            if (order.isEmpty()){
+            if (order.isEmpty()) {
                 return null;
             }
-            AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime()*60);
+            AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime() * 60);
             advertisementManager.processVideos();
             setChanged();
             notifyObservers(order);
-        }catch (IOException e) {
+        } catch (IOException e) {
             logger.log(Level.SEVERE, "The console is unavailable.");
+        } catch (NoVideoAvailableException e) {
+            logger.log(Level.INFO, "No video is available for the following order: " + order);
         }
         return order;
     }
