@@ -47,5 +47,9 @@ public class Advertisement {
         }
         impressionsRemaining--;
     }
+
+    public boolean isActive() {
+        return impressionsRemaining > 0;
+    }
 }
 
