@@ -1,0 +1,16 @@
+package big_task2712_restaurant_manager.statistics.event;
+
+import java.util.Date;
+
+public class NoVideosAvailableEventDataRow implements EventDataRow{
+    //The time required to prepare the order in seconds
+    private final int totalDuration;
+
+    private final Date currentDate;
+
+    public NoVideosAvailableEventDataRow(int totalDuration) {
+        this.totalDuration = totalDuration;
+
+        this.currentDate = new Date();
+    }
+}
