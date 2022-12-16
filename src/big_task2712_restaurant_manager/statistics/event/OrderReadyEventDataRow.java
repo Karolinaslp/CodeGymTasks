@@ -27,4 +27,10 @@ public class OrderReadyEventDataRow implements EventDataRow{
         this.dishesInOrder = dishesInOrder;
         this.currentDate = new Date();
     }
+
+
+    @Override
+    public EventType getType() {
+        return EventType.ORDER_READY;
+    }
 }
