@@ -1,6 +1,6 @@
 package big_task2712_restaurant_manager.add;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AdvertisementStorage {
@@ -12,7 +12,7 @@ public class AdvertisementStorage {
         return InstanceHolder.instance;
     }
 
-    private final List<Advertisement> videos = new ArrayList<>();
+    private final List<Advertisement> videos = new LinkedList<>();
 
     private AdvertisementStorage() {
         Object someContent = new Object();
