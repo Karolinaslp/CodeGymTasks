@@ -8,6 +8,6 @@ import java.util.Observer;
 public class Waiter implements Observer {
     @Override
     public void update(Observable o, Object order) {
-        ConsoleHelper.writeMassage(order + " was prepared by " + o);
+        ConsoleHelper.writeMessage(order + " was prepared by " + o);
     }
 }
