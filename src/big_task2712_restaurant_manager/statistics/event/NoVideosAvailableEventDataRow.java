@@ -13,4 +13,9 @@ public class NoVideosAvailableEventDataRow implements EventDataRow{
 
         this.currentDate = new Date();
     }
+
+    @Override
+    public EventType getType() {
+        return EventType.NO_VIDEOS_AVAILABLE;
+    }
 }
