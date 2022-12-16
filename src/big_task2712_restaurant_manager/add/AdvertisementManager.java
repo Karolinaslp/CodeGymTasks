@@ -1,6 +1,8 @@
 package big_task2712_restaurant_manager.add;
 
 import big_task2712_restaurant_manager.ConsoleHelper;
+import big_task2712_restaurant_manager.statistics.StatisticsManager;
+import big_task2712_restaurant_manager.statistics.event.VideosSelectedEventDataRow;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +20,9 @@ public class AdvertisementManager {
     public void processVideos() throws NoVideoAvailableException {
         this.totalTimeSecondsLeft = Integer.MAX_VALUE;
         obtainOptimalVideoSet(new ArrayList<>(), timeSeconds, 0L);
+
+        VideosSelectedEventDataRow row = new VideosSelectedEventDataRow(optimalVideoSet, maxAmount, timeSeconds - totalTimeSecondsLeft);
+        StatisticsManager.getInstance().record(row);
 
         displayAdvertisement();
     }
