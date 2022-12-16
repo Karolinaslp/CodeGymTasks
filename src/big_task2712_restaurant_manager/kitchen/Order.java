@@ -13,11 +13,15 @@ public class Order {
     public Order(Tablet tablet) throws IOException {
         this.tablet = tablet;
         this.dishes = ConsoleHelper.getAllDishesForOrder();
-        ConsoleHelper.writeMassage(toString());
+        ConsoleHelper.writeMessage(toString());
     }
 
-    public boolean isEmpty() {
-        return dishes.isEmpty();
+    public Tablet getTablet() {
+        return tablet;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
     }
 
     public int getTotalCookingTime() {
@@ -40,5 +44,9 @@ public class Order {
         result.append("] from ").append(tablet);
         result.append(", cooking time ").append(getTotalCookingTime()).append(" min");
         return result.toString();
+    }
+
+    public boolean isEmpty() {
+        return dishes.isEmpty();
     }
 }
