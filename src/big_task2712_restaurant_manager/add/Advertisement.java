@@ -24,6 +24,7 @@ public class Advertisement {
         this.amountPaid = amountPaid;
         this.impressionsRemaining = impressionsRemaining;
         this.duration = duration;
+
         if (impressionsRemaining > 0) {
             amountPerImpression = amountPaid / impressionsRemaining;
         }
@@ -52,4 +53,3 @@ public class Advertisement {
         return impressionsRemaining > 0;
     }
 }
-
