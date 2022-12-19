@@ -33,4 +33,14 @@ public class OrderReadyEventDataRow implements EventDataRow{
     public EventType getType() {
         return EventType.ORDER_READY;
     }
+
+    @Override
+    public Date getDate() {
+        return null;
+    }
+
+    @Override
+    public int getTime() {
+        return 0;
+    }
 }
