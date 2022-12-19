@@ -1,15 +1,14 @@
 package big_task2712_restaurant_manager.statistics;
 
+import big_task2712_restaurant_manager.kitchen.Cook;
 import big_task2712_restaurant_manager.statistics.event.EventDataRow;
 import big_task2712_restaurant_manager.statistics.event.EventType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class StatisticsManager {
     private static StatisticsManager ourInstance = new StatisticsManager();
+    private Set<Cook> cooks = new HashSet<>();
 
     public static StatisticsManager getInstance() {
         return ourInstance;
@@ -40,5 +39,9 @@ public class StatisticsManager {
 
     public void record(EventDataRow data) {
         this.statisticsStorage.put(data);
+    }
+
+    public void register(Cook cook) {
+        cooks.add(cook);
     }
 }
