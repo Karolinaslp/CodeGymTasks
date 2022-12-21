@@ -3,18 +3,21 @@ package big_task2712_restaurant_manager.statistics;
 import big_task2712_restaurant_manager.kitchen.Cook;
 import big_task2712_restaurant_manager.statistics.event.EventDataRow;
 import big_task2712_restaurant_manager.statistics.event.EventType;
+import big_task2712_restaurant_manager.statistics.event.OrderReadyEventDataRow;
+import big_task2712_restaurant_manager.statistics.event.VideosSelectedEventDataRow;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class StatisticsManager {
     private static StatisticsManager ourInstance = new StatisticsManager();
-    private Set<Cook> cooks = new HashSet<>();
 
     public static StatisticsManager getInstance() {
         return ourInstance;
     }
 
     private StatisticsStorage statisticsStorage = new StatisticsStorage();
+    private Set<Cook> cooks = new HashSet<>();
 
     private StatisticsManager() {
     }
@@ -35,6 +38,13 @@ public class StatisticsManager {
 
             this.storage.get(type).add(data);
         }
+
+        private List<EventDataRow> get(EventType type) {
+            if (!this.storage.containsKey(type))
+                throw new UnsupportedOperationException();
+
+            return this.storage.get(type);
+        }
     }
 
     public void record(EventDataRow data) {
@@ -42,6 +52,49 @@ public class StatisticsManager {
     }
 
     public void register(Cook cook) {
-        cooks.add(cook);
+        this.cooks.add(cook);
+    }
+
+    public Map<String, Long> getProfitMap() {
+        Map<String, Long> res = new HashMap();
+        List<EventDataRow> rows = statisticsStorage.get(EventType.VIDEOS_SELECTED);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        long total = 0l;
+        for (EventDataRow row : rows) {
+            VideosSelectedEventDataRow dataRow = (VideosSelectedEventDataRow) row;
+            String date = format.format(dataRow.getDate());
+            if (!res.containsKey(date)) {
+                res.put(date, 0l);
+            }
+            total += dataRow.getAmount();
+            res.put(date, res.get(date) + dataRow.getAmount());
+        }
+
+        res.put("Total", total);
+
+        return res;
+    }
+
+    public Map<String, Map<String, Integer>> getCookWorkloadingMap() {
+        Map<String, Map<String, Integer>> res = new HashMap(); //name, time
+        List<EventDataRow> rows = statisticsStorage.get(EventType.ORDER_READY);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+        for (EventDataRow row : rows) {
+            OrderReadyEventDataRow dataRow = (OrderReadyEventDataRow) row;
+            String date = format.format(dataRow.getDate());
+            if (!res.containsKey(date)) {
+                res.put(date, new HashMap<String, Integer>());
+            }
+            Map<String, Integer> cookMap = res.get(date);
+            String cookName = dataRow.getCookName();
+            if (!cookMap.containsKey(cookName)) {
+                cookMap.put(cookName, 0);
+            }
+
+            Integer totalTime = cookMap.get(cookName);
+            cookMap.put(cookName, totalTime + dataRow.getTime());
+        }
+
+        return res;
     }
 }
