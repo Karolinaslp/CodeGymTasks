@@ -21,11 +21,11 @@ public class NoVideosAvailableEventDataRow implements EventDataRow{
 
     @Override
     public Date getDate() {
-        return null;
+        return currentDate;
     }
 
     @Override
     public int getTime() {
-        return 0;
+        return totalDuration;
     }
 }
