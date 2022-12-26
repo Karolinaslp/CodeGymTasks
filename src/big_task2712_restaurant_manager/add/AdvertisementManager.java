@@ -1,6 +1,5 @@
 package big_task2712_restaurant_manager.add;
 
-import big_task2712_restaurant_manager.ConsoleHelper;
 import big_task2712_restaurant_manager.statistics.StatisticsManager;
 import big_task2712_restaurant_manager.statistics.event.VideosSelectedEventDataRow;
 
@@ -74,7 +73,6 @@ public class AdvertisementManager {
     }
 
     private void displayAdvertisement() {
-        //TODO displaying
         if (optimalVideoSet == null || optimalVideoSet.isEmpty()) {
             throw new NoVideoAvailableException();
         }
@@ -94,7 +92,7 @@ public class AdvertisementManager {
     }
 
     private void displayInPlayer(Advertisement advertisement) {
-        //TODO get Player instance and display content
+        // get Player instance and display content
         System.out.println("Displaying "
                 + advertisement.getName()
                 + "... "
