@@ -1,11 +1,10 @@
 package big_task2712_restaurant_manager;
 
+import big_task2712_restaurant_manager.add.Advertisement;
+import big_task2712_restaurant_manager.add.StatisticsAdvertisementManager;
 import big_task2712_restaurant_manager.statistics.StatisticsManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class ManagerTablet {
 
@@ -16,8 +15,8 @@ public class ManagerTablet {
         Collections.sort(list);
 
         for (String key : list) {
-            double amount = 1.0 * profitMap.get(key) / 100;
-            System.out.println(key + " - " + String.format(Locale.ENGLISH, "%.2f", amount));
+            long aLong = profitMap.get(key);
+            System.out.println(key + " - " + (aLong / 100) + "." + (aLong % 100));
         }
     }
 
@@ -34,7 +33,7 @@ public class ManagerTablet {
             ArrayList<String> cookNames = new ArrayList(cookMap.keySet());
             Collections.sort(cookNames);
             for (String cookName : cookNames) {
-                System.out.println(cookName + " - " + ((cookMap.get(cookName)+59)/60 ) + " min");
+                System.out.println(cookName + " - " + ((cookMap.get(cookName) + 59) / 60) + " min");
             }
 
             System.out.println();
@@ -43,11 +42,30 @@ public class ManagerTablet {
 
 
     public void printActiveVideoSet() {
+        List<Advertisement> videoList = StatisticsAdvertisementManager.getInstance().getVideoList(true);
+        Collections.sort(videoList, new Comparator<Advertisement>() {
+            @Override
+            public int compare(Advertisement o1, Advertisement o2) {
+                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+            }
+        });
 
+        for (Advertisement advertisement : videoList) {
+            System.out.println(advertisement.getName() + " - " + advertisement.getHits());
+        }
     }
 
     public void printArchivedVideoSet() {
+        List<Advertisement> videoList = StatisticsAdvertisementManager.getInstance().getVideoList(false);
+        Collections.sort(videoList, new Comparator<Advertisement>() {
+            @Override
+            public int compare(Advertisement o1, Advertisement o2) {
+                return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+            }
+        });
 
+        for (Advertisement advertisement : videoList) {
+            System.out.println(advertisement.getName());
+        }
     }
 }
-
