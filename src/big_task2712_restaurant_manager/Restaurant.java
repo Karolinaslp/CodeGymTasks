@@ -15,14 +15,17 @@ public class Restaurant {
 
         List<Tablet> tablets = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            Tablet tablet = new Tablet(i);
-            tablet.addObserver(cookMichal);
-            tablet.addObserver(cookKarolina);
-            tablets.add(tablet);
+            tablets.add(new Tablet(i));
         }
 
         StatisticsManager.getInstance().register(cookMichal);
         StatisticsManager.getInstance().register(cookKarolina);
+
+        OrderManager orderManager = new OrderManager();
+
+        for (Tablet tablet : tablets) {
+            tablet.addObserver(orderManager);
+        }
 
         Thread thread = new Thread(new RandomOrderGeneratorTask(tablets, ORDER_CREATION_INTERVAL));
         thread.start();
