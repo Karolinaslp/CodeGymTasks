@@ -6,14 +6,26 @@ import big_task2712_restaurant_manager.statistics.StatisticsManager;
 import big_task2712_restaurant_manager.statistics.event.OrderReadyEventDataRow;
 
 import java.util.Observable;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class Cook extends Observable {
+//This class is consumer
+public class Cook extends Observable implements Runnable {
     private final String name;
 
     private boolean busy;
 
+    private LinkedBlockingQueue<Order> queue = new LinkedBlockingQueue<>(200);
+
     public Cook(String name) {
         this.name = name;
+    }
+
+    public void setQueue(LinkedBlockingQueue<Order> queue) {
+        this.queue = queue;
+    }
+
+    public LinkedBlockingQueue<Order> getQueue() {
+        return queue;
     }
 
     public boolean isBusy() {
@@ -46,6 +58,20 @@ public class Cook extends Observable {
     public String toString() {
         return name;
     }
-}
 
+    @Override
+    public void run() {
+        try {
+            while (true) {
+                Thread.sleep(10);
+                if (!queue.isEmpty()) {
+                    if (!this.isBusy()) {
+                        this.startCookingOrder(queue.take());
+                    }
+                }
+            }
+        } catch (InterruptedException e) {
+        }
+    }
+}
 
