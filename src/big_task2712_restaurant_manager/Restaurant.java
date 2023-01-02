@@ -1,31 +1,39 @@
 package big_task2712_restaurant_manager;
 
 import big_task2712_restaurant_manager.kitchen.Cook;
-import big_task2712_restaurant_manager.statistics.StatisticsManager;
+import big_task2712_restaurant_manager.kitchen.Order;
+import big_task2712_restaurant_manager.kitchen.Waiter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Restaurant {
     private static final int ORDER_CREATION_INTERVAL = 100;
+    private static final LinkedBlockingQueue<Order> orderQueue = new LinkedBlockingQueue<>(200);
 
     public static void main(String[] args) {
-        Cook cookMichal = new Cook("Michal");
-        Cook cookKarolina = new Cook("Karolina");
-
         List<Tablet> tablets = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            tablets.add(new Tablet(i));
+            Tablet tablet = new Tablet(i + 1);
+            tablet.setQueue(orderQueue);
+            tablets.add(tablet);
         }
 
-        StatisticsManager.getInstance().register(cookMichal);
-        StatisticsManager.getInstance().register(cookKarolina);
+        Cook cookMichal = new Cook("Michal");
+        cookMichal.setQueue(orderQueue);
+        Cook cookKarolina = new Cook("Karolina");
+        cookKarolina.setQueue(orderQueue);
 
-        OrderManager orderManager = new OrderManager();
+        Waiter waiter = new Waiter();
+        cookMichal.addObserver(waiter);
+        cookKarolina.addObserver(waiter);
 
-        for (Tablet tablet : tablets) {
-            tablet.addObserver(orderManager);
-        }
+        Thread cookMichalThread = new Thread(cookMichal);
+        cookMichalThread.start();
+
+        Thread cookKarolinaThread = new Thread(cookKarolina);
+        cookKarolinaThread.start();
 
         Thread thread = new Thread(new RandomOrderGeneratorTask(tablets, ORDER_CREATION_INTERVAL));
         thread.start();
@@ -39,6 +47,7 @@ public class Restaurant {
             e.printStackTrace();
         }
 
+        // Show statistics
         ManagerTablet managerTablet = new ManagerTablet();
         managerTablet.printAdRevenue();
         managerTablet.printCookUtilization();
