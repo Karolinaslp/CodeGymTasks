@@ -11,32 +11,25 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Tablet extends Observable {
+public class Tablet {
     private final int number;
-    private static final Logger logger = Logger.getLogger(Tablet.class.getName());
+    private final static Logger logger = Logger.getLogger(Tablet.class.getName());
     private LinkedBlockingQueue<Order> queue;
 
     public Tablet(int number) {
         this.number = number;
     }
 
-    public Order createOrder() {
+    public void createOrder() {
         Order order = null;
         try {
             order = new Order(this);
-            if (order.isEmpty()) {
-                return null;
-            }
-            AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime() * 60);
-            advertisementManager.processVideos();
-            setChanged();
-            notifyObservers(order);
+            processOrder(order);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "The console is unavailable.");
         } catch (NoVideoAvailableException nve) {
             logger.log(Level.INFO, "No video is available for the following order: " + order);
         }
-        return order;
     }
 
     private boolean processOrder(Order order) {
@@ -44,8 +37,7 @@ public class Tablet extends Observable {
         if (order.isEmpty()) {
             return true;
         }
-        setChanged();
-        notifyObservers(order);
+        queue.offer(order);
 
         new AdvertisementManager(order.getTotalCookingTime() * 60).processVideos();
         return false;
