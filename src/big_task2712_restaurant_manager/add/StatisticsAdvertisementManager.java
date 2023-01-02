@@ -1,12 +1,11 @@
 package big_task2712_restaurant_manager.add;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StatisticsAdvertisementManager {
-    private static StatisticsAdvertisementManager ourInstance = new StatisticsAdvertisementManager();
-    private AdvertisementStorage storage = AdvertisementStorage.getInstance();
+    private final static StatisticsAdvertisementManager ourInstance = new StatisticsAdvertisementManager();
+    private final AdvertisementStorage storage = AdvertisementStorage.getInstance();
 
     public static StatisticsAdvertisementManager getInstance() {
         return ourInstance;
