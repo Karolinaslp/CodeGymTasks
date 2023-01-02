@@ -7,7 +7,7 @@ import java.util.Observer;
 
 public class Waiter implements Observer {
     @Override
-    public void update(Observable o, Object order) {
-        ConsoleHelper.writeMessage(order + " was prepared by " + o);
+    public void update(Observable cook, Object order) {
+        ConsoleHelper.writeMessage(order + " was prepared by " + cook);
     }
 }
