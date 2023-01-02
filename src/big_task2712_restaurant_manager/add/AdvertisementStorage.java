@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AdvertisementStorage {
-    private static class  InstanceHolder {
+    private static class InstanceHolder {
         private static final AdvertisementStorage instance = new AdvertisementStorage();
     }
 
