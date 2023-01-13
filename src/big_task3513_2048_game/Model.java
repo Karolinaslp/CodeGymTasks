@@ -1,15 +1,29 @@
 package big_task3513_2048_game;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 // Contain the game logic and store the game board
 public class Model {
+    private Tile[][] gameTiles;
     private static final int FIELD_WIDTH = 4;
-    private Tile[][] gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
+    int maxTile = 2;
+    int score = 0;
 
     public Model() {
         resetGameTiles();
+    }
+
+    void resetGameTiles() {
+        gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
+        for (int row = 0; row < FIELD_WIDTH; row++) {
+            for (int col = 0; col < FIELD_WIDTH; col++) {
+                gameTiles[row][col] = new Tile();
+            }
+        }
+        addTile();
+        addTile();
     }
 
     private void addTile() {
@@ -22,26 +36,71 @@ public class Model {
     }
 
     private List<Tile> getEmptyTiles() {
-        List<Tile> emptyTiles = new ArrayList<>();
+        final List<Tile> list = new ArrayList<Tile>();
         for (Tile[] tileArray : gameTiles) {
-            for (Tile t : tileArray) {
+            for (Tile t : tileArray)
                 if (t.isEmpty()) {
-                    emptyTiles.add(t);
+                    list.add(t);
                 }
-            }
         }
-        return emptyTiles;
+        return list;
     }
 
-    private void resetGameTiles() {
-        gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
-        for (int row = 0; row < FIELD_WIDTH; row++) {
-            for (int col = 0; col < FIELD_WIDTH; col++) {
-                gameTiles[row][col] = new Tile();
+    private boolean consolidateTiles(Tile[] tiles) {
+        int insertPosition = 0;
+        boolean result = false;
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            if (!tiles[i].isEmpty()) {
+                if (i != insertPosition) {
+                    tiles[insertPosition] = tiles[i];
+                    tiles[i] = new Tile();
+                    result = true;
+                }
+                insertPosition++;
             }
         }
-        addTile();
-        addTile();
+        return result;
+    }
+
+    private boolean mergeTiles(Tile[] tiles) {
+        boolean result = false;
+        LinkedList<Tile> tilesList = new LinkedList<>();
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            if (tiles[i].isEmpty()) {
+                continue;
+            }
+
+            if (i < FIELD_WIDTH - 1 && tiles[i].value == tiles[i + 1].value) {
+                int updatedValue = tiles[i].value * 2;
+                if (updatedValue > maxTile) {
+                    maxTile = updatedValue;
+                }
+                score += updatedValue;
+                tilesList.addLast(new Tile(updatedValue));
+                tiles[i + 1].value = 0;
+                result = true;
+            } else {
+                tilesList.addLast(new Tile(tiles[i].value));
+            }
+            tiles[i].value = 0;
+        }
+
+        for (int i = 0; i < tilesList.size(); i++) {
+            tiles[i] = tilesList.get(i);
+        }
+
+        return result;
+    }
+
+    public void left() {
+        boolean moveFlag = false;
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            if (consolidateTiles(gameTiles[i]) | mergeTiles(gameTiles[i])) {
+                moveFlag = true;
+            }
+        }
+        if (moveFlag) {
+            addTile();
+        }
     }
 }
-
