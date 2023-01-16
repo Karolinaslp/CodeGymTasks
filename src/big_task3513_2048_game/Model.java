@@ -15,6 +15,10 @@ public class Model {
         resetGameTiles();
     }
 
+    public Tile[][] getGameTiles() {
+        return gameTiles;
+    }
+
     void resetGameTiles() {
         gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
         for (int row = 0; row < FIELD_WIDTH; row++) {
@@ -36,7 +40,7 @@ public class Model {
     }
 
     private List<Tile> getEmptyTiles() {
-        final List<Tile> list = new ArrayList<Tile>();
+        final List<Tile> list = new ArrayList<>();
         for (Tile[] tileArray : gameTiles) {
             for (Tile t : tileArray)
                 if (t.isEmpty()) {
@@ -92,6 +96,17 @@ public class Model {
         return result;
     }
 
+    private Tile[][] rotateClockwise(Tile[][] tiles) {
+        final int N = tiles.length;
+        Tile[][] result = new Tile[N][N];
+        for (int row = 0; row < N; row++) {
+            for (int column = 0; column < N; column++) {
+                result[column][N - 1 - row] = tiles[row][column];
+            }
+        }
+        return result;
+    }
+
     public void left() {
         boolean moveFlag = false;
         for (int i = 0; i < FIELD_WIDTH; i++) {
@@ -102,5 +117,54 @@ public class Model {
         if (moveFlag) {
             addTile();
         }
+    }
+
+    public void right() {
+        gameTiles = rotateClockwise(gameTiles);
+        gameTiles = rotateClockwise(gameTiles);
+        left();
+        gameTiles = rotateClockwise(gameTiles);
+        gameTiles = rotateClockwise(gameTiles);
+    }
+
+    public void up() {
+        gameTiles = rotateClockwise(gameTiles);
+        gameTiles = rotateClockwise(gameTiles);
+        gameTiles = rotateClockwise(gameTiles);
+        left();
+        gameTiles = rotateClockwise(gameTiles);
+    }
+
+    public void down() {
+        gameTiles = rotateClockwise(gameTiles);
+        left();
+        gameTiles = rotateClockwise(gameTiles);
+        gameTiles = rotateClockwise(gameTiles);
+        gameTiles = rotateClockwise(gameTiles);
+    }
+
+    private int getEmptyTilesCount() {
+        return getEmptyTiles().size();
+    }
+
+    private boolean isFull() {
+        return getEmptyTilesCount() == 0;
+    }
+
+    public boolean canMove() {
+        if (!isFull()) {
+            return true;
+        }
+
+        for (int x = 0; x < FIELD_WIDTH; x++) {
+            for (int y = 0; y < FIELD_WIDTH; y++) {
+                Tile t = gameTiles[x][y];
+                if ((x < FIELD_WIDTH - 1 && t.value == gameTiles[x + 1][y].value)
+                        || ((y < FIELD_WIDTH - 1) && t.value == gameTiles[x][y + 1].value)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
