@@ -10,6 +10,11 @@ public class Controller extends KeyAdapter {
 
     private static final int WINNING_TILE = 2048;
 
+    public Controller(Model model) {
+        this.model = model;
+        view = new View(this);
+    }
+
     public Tile[][] getGameTiles() {
         return model.getGameTiles();
     }
@@ -18,9 +23,8 @@ public class Controller extends KeyAdapter {
         return model.score;
     }
 
-    public Controller(Model model) {
-        this.model = model;
-        view = new View(this);
+    public View getView() {
+        return view;
     }
 
     @Override
