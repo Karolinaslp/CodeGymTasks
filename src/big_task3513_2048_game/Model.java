@@ -3,6 +3,7 @@ package big_task3513_2048_game;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 // Contain the game logic and store the game board
 public class Model {
@@ -10,6 +11,12 @@ public class Model {
     private static final int FIELD_WIDTH = 4;
     int maxTile = 2;
     int score = 0;
+
+    private Stack<Tile[][]> previousStates = new Stack<>();
+    private  Stack<Integer> previousScores = new Stack<>();
+    boolean isSaveNeeded = true;
+
+
 
     public Model() {
         resetGameTiles();
@@ -40,7 +47,7 @@ public class Model {
     }
 
     private List<Tile> getEmptyTiles() {
-        final List<Tile> list = new ArrayList<>();
+        final List<Tile> list = new ArrayList<Tile>();
         for (Tile[] tileArray : gameTiles) {
             for (Tile t : tileArray)
                 if (t.isEmpty()) {
@@ -166,5 +173,24 @@ public class Model {
             }
         }
         return false;
+    }
+
+    private void saveState(Tile[][] tiles){
+        Tile[][] tempTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            for (int j = 0; j < FIELD_WIDTH; j++) {
+                tempTiles[i][j] = new Tile(tiles[i][j].value);
+            }
+        }
+        previousStates.push(tempTiles);
+        previousScores.push(score);
+        isSaveNeeded = false;
+    }
+
+    public void rollback() {
+        if (!previousStates.isEmpty() && !previousScores.isEmpty()) {
+            gameTiles = previousStates.pop();
+            score = previousScores.pop();
+        }
     }
 }
