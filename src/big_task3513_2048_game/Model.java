@@ -200,4 +200,14 @@ public class Model {
             score = previousScores.pop();
         }
     }
+
+    public void randomMove() {
+        int n = ((int) (Math.random() * 100)) % 4;
+        switch (n) {
+            case 0 -> left();
+            case 1 -> right();
+            case 2 -> up();
+            case 3 -> down();
+        }
+    }
 }
