@@ -15,12 +15,12 @@ public class Controller extends KeyAdapter {
         view = new View(this);
     }
 
-    public Tile[][] getGameTiles() {
-        return model.getGameTiles();
-    }
-
     public int getScore() {
         return model.score;
+    }
+
+    public Tile[][] getGameTiles() {
+        return model.getGameTiles();
     }
 
     public View getView() {
@@ -41,9 +41,10 @@ public class Controller extends KeyAdapter {
                 case KeyEvent.VK_LEFT -> model.left();
                 case KeyEvent.VK_RIGHT -> model.right();
                 case KeyEvent.VK_UP -> model.up();
-                case KeyEvent.VK_DOWN -> model.down();
                 case KeyEvent.VK_Z -> model.rollback();
+                case KeyEvent.VK_DOWN -> model.down();
                 case KeyEvent.VK_R -> model.randomMove();
+                case KeyEvent.VK_A -> model.autoMove();
             }
         }
         if (WINNING_TILE == model.maxTile) {
@@ -59,4 +60,3 @@ public class Controller extends KeyAdapter {
         model.resetGameTiles();
     }
 }
-
