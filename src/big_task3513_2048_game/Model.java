@@ -1,9 +1,6 @@
 package big_task3513_2048_game;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 // Contain the game logic and store the game board
 public class Model {
@@ -12,11 +9,9 @@ public class Model {
     int maxTile = 2;
     int score = 0;
 
-    private Stack<Tile[][]> previousStates = new Stack<>();
-    private  Stack<Integer> previousScores = new Stack<>();
+    private final Stack<Tile[][]> previousStates = new Stack<>();
+    private final Stack<Integer> previousScores = new Stack<>();
     boolean isSaveNeeded = true;
-
-
 
     public Model() {
         resetGameTiles();
@@ -47,7 +42,7 @@ public class Model {
     }
 
     private List<Tile> getEmptyTiles() {
-        final List<Tile> list = new ArrayList<Tile>();
+        final List<Tile> list = new ArrayList<>();
         for (Tile[] tileArray : gameTiles) {
             for (Tile t : tileArray)
                 if (t.isEmpty()) {
@@ -170,11 +165,11 @@ public class Model {
             return true;
         }
 
-        for (int x = 0; x < FIELD_WIDTH; x++) {
-            for (int y = 0; y < FIELD_WIDTH; y++) {
-                Tile t = gameTiles[x][y];
-                if ((x < FIELD_WIDTH - 1 && t.value == gameTiles[x + 1][y].value)
-                        || ((y < FIELD_WIDTH - 1) && t.value == gameTiles[x][y + 1].value)) {
+        for (int row = 0; row < FIELD_WIDTH; row++) {
+            for (int column = 0; column < FIELD_WIDTH; column++) {
+                Tile t = gameTiles[row][column];
+                if ((row < FIELD_WIDTH - 1 && t.value == gameTiles[row + 1][column].value)
+                        || ((column < FIELD_WIDTH - 1) && t.value == gameTiles[row][column + 1].value)) {
                     return true;
                 }
             }
@@ -182,11 +177,11 @@ public class Model {
         return false;
     }
 
-    private void saveState(Tile[][] tiles){
+    private void saveState(Tile[][] tiles) {
         Tile[][] tempTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
-        for (int i = 0; i < FIELD_WIDTH; i++) {
-            for (int j = 0; j < FIELD_WIDTH; j++) {
-                tempTiles[i][j] = new Tile(tiles[i][j].value);
+        for (int row = 0; row < FIELD_WIDTH; row++) {
+            for (int column = 0; column < FIELD_WIDTH; column++) {
+                tempTiles[row][column] = new Tile(tiles[row][column].value);
             }
         }
         previousStates.push(tempTiles);
@@ -209,5 +204,38 @@ public class Model {
             case 2 -> up();
             case 3 -> down();
         }
+    }
+
+    private boolean hasBoardChanged() {
+        for (int row = 0; row < FIELD_WIDTH; row++) {
+            for (int column = 0; column < FIELD_WIDTH; column++) {
+                if (gameTiles[row][column].value != previousStates.peek()[row][column].value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private MoveFitness getMoveFitness(Move move) {
+        MoveFitness moveFitness = new MoveFitness(-1, 0, move);
+        move.move();
+        if (hasBoardChanged()) {
+            moveFitness = new MoveFitness(getEmptyTilesCount(), score, move);
+        }
+        rollback();
+        return moveFitness;
+    }
+
+    void autoMove() {
+        PriorityQueue<MoveFitness> priorityQueue = new PriorityQueue<>(4, Collections.reverseOrder());
+
+        priorityQueue.offer(getMoveFitness(this::left));
+        priorityQueue.offer(getMoveFitness(this::right));
+        priorityQueue.offer(getMoveFitness(this::down));
+        priorityQueue.offer(getMoveFitness(this::up));
+
+        assert priorityQueue.peek() != null;
+        priorityQueue.peek().getMove().move();
     }
 }
