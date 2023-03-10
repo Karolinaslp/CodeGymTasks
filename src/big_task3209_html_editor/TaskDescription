@@ -2,7 +2,7 @@ HTML Editor:
 
 From working on this mini project I learned:
     1. How to create application with a graphic interface.
-    2. How to wor with dialog boxes.
+    2. How to work with dialog boxes.
     3. How to use classes from the Swing library.
     4. How to implement interaction between program components with help of events, listeners and actions.
     5. How to implement MVC pattern in the project.
