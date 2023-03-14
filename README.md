@@ -1,4 +1,5 @@
 # Code Gym Tasks
+In here I am saving the most interesting tasks that I've been solving on CodeGym course.
 
 ## Table of Contents
 * [Restaurant manager](#restaurant-manager)
