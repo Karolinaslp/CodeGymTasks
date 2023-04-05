@@ -1,4 +1,5 @@
 # Code Gym Tasks
+In here I am saving the most interesting tasks that I've been solving on CodeGym course.
 
 ## Table of Contents
 * [Restaurant manager](#restaurant-manager)
@@ -25,7 +26,7 @@ The client and server communicate through a socket connection.
 One side write data to the socket, while the other read.
 The Connection class wrap the java.net.Socket class,
 which serialize and deserialize Message objects to/from the socket.
-The methods of this class sare callable from different threads.
+The methods of this class are callable from different threads.
 The server support multiple simultaneous connections with different clients.
 This is done using the following algorithm:
 - The server creates a server socket connection.
